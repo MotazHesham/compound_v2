@@ -9,7 +9,7 @@ class HomeController
     public function index()
     {
         $settings1 = [
-            'chart_title'           => 'Clients',
+            'chart_title'           => 'العملاء',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Client',
@@ -47,7 +47,7 @@ class HomeController
         }
 
         $settings2 = [
-            'chart_title'           => 'Appointments',
+            'chart_title'           => 'المواعيد',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Appointment',
@@ -85,7 +85,7 @@ class HomeController
         }
 
         $settings3 = [
-            'chart_title'           => 'Contracts',
+            'chart_title'           => 'العقود',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Contract',
@@ -123,7 +123,7 @@ class HomeController
         }
 
         $settings4 = [
-            'chart_title'           => 'Latest Appointments',
+            'chart_title'           => 'أخر المواعيد',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Appointment',
@@ -158,7 +158,7 @@ class HomeController
         }
 
         $settings5 = [
-            'chart_title'           => 'Appointments',
+            'chart_title'           => 'المواعيد',
             'chart_type'            => 'line',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Appointment',
