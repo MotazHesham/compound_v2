@@ -63,33 +63,50 @@ class ClientsController extends Controller
     public function create()
     {
         abort_if(Gate::denies('client_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
 
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.clients.create', compact('users'));
+        return view('admin.clients.create');
     }
 
     public function store(StoreClientRequest $request)
     {
-        $client = Client::create($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone, 
+            'password' => bcrypt($request->password), 
+            'user_type' => 'client',
+        ]);
+        Client::create([
+            'user_id' => $user->id,
+            'address' => $request->address,
+        ]);
 
         return redirect()->route('admin.clients.index');
     }
 
     public function edit(Client $client)
     {
-        abort_if(Gate::denies('client_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        abort_if(Gate::denies('client_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
         $client->load('user');
+        $user = $client->user;
 
-        return view('admin.clients.edit', compact('client', 'users'));
+        return view('admin.clients.edit', compact('client', 'user'));
     }
 
     public function update(UpdateClientRequest $request, Client $client)
     {
-        $client->update($request->all());
+        $user = User::findOrFail($request->user_id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone, 
+            'password' => $request->password != null ? bcrypt($request->password) : $user->password,  
+        ]); 
+        $client->update([ 
+            'address' => $request->address,
+        ]);
 
         return redirect()->route('admin.clients.index');
     }
@@ -99,14 +116,16 @@ class ClientsController extends Controller
         abort_if(Gate::denies('client_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $client->load('user', 'clientContracts', 'clientAppointments');
+        $user = $client->user;
 
-        return view('admin.clients.show', compact('client'));
+        return view('admin.clients.show', compact('client','user'));
     }
 
     public function destroy(Client $client)
     {
         abort_if(Gate::denies('client_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $client->user()->delete();
         $client->delete();
 
         return back();
@@ -117,6 +136,7 @@ class ClientsController extends Controller
         $clients = Client::find(request('ids'));
 
         foreach ($clients as $client) {
+            $client->user()->delete();
             $client->delete();
         }
 

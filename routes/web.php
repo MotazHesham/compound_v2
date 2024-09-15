@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {
@@ -43,6 +46,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Appointments
     Route::delete('appointments/destroy', 'AppointmentsController@massDestroy')->name('appointments.massDestroy');
+    Route::post('appointments/get_contracts', 'AppointmentsController@get_contracts')->name('appointments.get_contracts');
     Route::post('appointments/media', 'AppointmentsController@storeMedia')->name('appointments.storeMedia');
     Route::post('appointments/ckmedia', 'AppointmentsController@storeCKEditorImages')->name('appointments.storeCKEditorImages');
     Route::resource('appointments', 'AppointmentsController');

@@ -1,5 +1,5 @@
 @can('appointment_create')
-    <div style="margin-bottom: 10px;" class="row">
+    <div style="margin-bottom: 10px;" class="row p-4">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('admin.appointments.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.appointment.title_singular') }}
@@ -35,16 +35,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.appointment.fields.status') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.appointment.fields.problem_description') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.appointment.fields.problem_photos') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.appointment.fields.cancel_reason') }}
-                        </th>
+                        </th> 
                         <th>
                             {{ trans('cruds.appointment.fields.contract') }}
                         </th>
@@ -79,25 +70,12 @@
                             </td>
                             <td>
                                 {{ App\Models\Appointment::STATUS_SELECT[$appointment->status] ?? '' }}
+                            </td> 
+                            <td>
+                                {{ $appointment->contract->id ?? '' }}
                             </td>
                             <td>
-                                {{ $appointment->problem_description ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($appointment->problem_photos as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $media->getUrl('thumb') }}">
-                                    </a>
-                                @endforeach
-                            </td>
-                            <td>
-                                {{ $appointment->cancel_reason ?? '' }}
-                            </td>
-                            <td>
-                                {{ $appointment->contract->start_date ?? '' }}
-                            </td>
-                            <td>
-                                {{ $appointment->client->address ?? '' }}
+                                {{ $appointment->client->user->name ?? '' }}
                             </td>
                             <td>
                                 @foreach($appointment->technicians as $key => $item)

@@ -17,6 +17,21 @@ class StoreTechnicianRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => [
+                'string',
+                'required',
+            ],
+            'email' => [
+                'required',
+                'unique:users',
+            ],
+            'phone' => [
+                'string',
+                'nullable',
+            ], 
+            'password' => [
+                'required',
+            ],
             'technician_type_id' => [
                 'required',
                 'integer',

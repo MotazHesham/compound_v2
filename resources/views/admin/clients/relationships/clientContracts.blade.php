@@ -1,5 +1,5 @@
 @can('contract_create')
-    <div style="margin-bottom: 10px;" class="row">
+    <div style="margin-bottom: 10px;" class="row p-4">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('admin.contracts.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.contract.title_singular') }}

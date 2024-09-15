@@ -80,7 +80,7 @@ class AppointmentCovenantsController extends Controller
     {
         $appointmentCovenant = AppointmentCovenant::create($request->all());
 
-        return redirect()->route('admin.appointment-covenants.index');
+        return redirect()->route('admin.appointments.show',$appointmentCovenant->appointment_id);
     }
 
     public function edit(AppointmentCovenant $appointmentCovenant)
@@ -100,7 +100,7 @@ class AppointmentCovenantsController extends Controller
     {
         $appointmentCovenant->update($request->all());
 
-        return redirect()->route('admin.appointment-covenants.index');
+        return redirect()->route('admin.appointments.show',$appointmentCovenant->appointment_id);
     }
 
     public function show(AppointmentCovenant $appointmentCovenant)

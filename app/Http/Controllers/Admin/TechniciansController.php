@@ -67,38 +67,56 @@ class TechniciansController extends Controller
 
     public function create()
     {
-        abort_if(Gate::denies('technician_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        abort_if(Gate::denies('technician_create'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
         $technician_types = TechnicianType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.technicians.create', compact('technician_types', 'users'));
+        return view('admin.technicians.create', compact('technician_types'));
     }
 
     public function store(StoreTechnicianRequest $request)
     {
-        $technician = Technician::create($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone, 
+            'password' => bcrypt($request->password), 
+            'user_type' => 'technician',
+        ]);
+        Technician::create([ 
+            'user_id' => $user->id,
+            'technician_type_id' => $request->technician_type_id,
+            'identity_num' => $request->identity_num,
+        ]);
 
         return redirect()->route('admin.technicians.index');
     }
 
     public function edit(Technician $technician)
     {
-        abort_if(Gate::denies('technician_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        abort_if(Gate::denies('technician_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
         $technician_types = TechnicianType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $technician->load('user', 'technician_type');
+        $user = $technician->user;
 
-        return view('admin.technicians.edit', compact('technician', 'technician_types', 'users'));
+        return view('admin.technicians.edit', compact('technician', 'technician_types', 'user'));
     }
 
     public function update(UpdateTechnicianRequest $request, Technician $technician)
     {
-        $technician->update($request->all());
+        $user = User::findOrFail($request->user_id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone, 
+            'password' => $request->password != null ? bcrypt($request->password) : $user->password,  
+        ]); 
+        $technician->update([
+            'technician_type_id' => $request->technician_type_id,
+            'identity_num' => $request->identity_num,
+        ]);
 
         return redirect()->route('admin.technicians.index');
     }
@@ -108,14 +126,16 @@ class TechniciansController extends Controller
         abort_if(Gate::denies('technician_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $technician->load('user', 'technician_type', 'technicianCovenants', 'technicianAppointments');
+        $user = $technician->user;
 
-        return view('admin.technicians.show', compact('technician'));
+        return view('admin.technicians.show', compact('technician','user'));
     }
 
     public function destroy(Technician $technician)
     {
         abort_if(Gate::denies('technician_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $technician->user()->delete();
         $technician->delete();
 
         return back();
@@ -126,6 +146,7 @@ class TechniciansController extends Controller
         $technicians = Technician::find(request('ids'));
 
         foreach ($technicians as $technician) {
+            $technician->user()->delete();
             $technician->delete();
         }
 

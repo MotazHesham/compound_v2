@@ -16,6 +16,19 @@ class UpdateClientRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'name' => [
+                'string',
+                'required',
+            ],
+            'email' => [
+                'required',
+                'unique:users,email,' . request()->user_id,
+            ],
+            'phone' => [
+                'string',
+                'nullable',
+            ],
+        ];
     }
 }

@@ -17,6 +17,18 @@ class UpdateTechnicianRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => [
+                'string',
+                'required',
+            ],
+            'email' => [
+                'required',
+                'unique:users,email,' . request()->user_id,
+            ],
+            'phone' => [
+                'string',
+                'nullable',
+            ],
             'technician_type_id' => [
                 'required',
                 'integer',

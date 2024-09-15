@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-
+<!DOCTYPE html> 
+<html @if (app()->getLocale() == 'ar') dir="rtl" @endif>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -22,6 +21,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    @if (app()->getLocale() == 'ar')
+        <style>
+            .c-sidebar-nav .c-sidebar-nav-dropdown-items {
+                padding-right: 5%;
+            }
+        </style>
+    @else
+        <style>
+            .c-sidebar-nav .c-sidebar-nav-dropdown-items {
+                padding-left: 5%;
+            }
+        </style>
+    @endif
     @yield('styles')
 </head>
 
@@ -39,7 +51,7 @@
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <ul class="c-header-nav ml-auto">
+            <ul class="c-header-nav @if (app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
                 @if(count(config('panel.available_languages', [])) > 1)
                     <li class="c-header-nav-item dropdown d-md-down-none">
                         <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -53,7 +65,7 @@
                     </li>
                 @endif
 
-                <ul class="c-header-nav ml-auto">
+                <ul class="c-header-nav @if (app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
                     <li class="c-header-nav-item dropdown notifications-menu">
                         <a href="#" class="c-header-nav-link" data-toggle="dropdown">
                             <i class="far fa-bell"></i>

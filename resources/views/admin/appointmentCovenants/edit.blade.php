@@ -10,20 +10,7 @@
         <form method="POST" action="{{ route("admin.appointment-covenants.update", [$appointmentCovenant->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
-            <div class="form-group">
-                <label for="appointment_id">{{ trans('cruds.appointmentCovenant.fields.appointment') }}</label>
-                <select class="form-control select2 {{ $errors->has('appointment') ? 'is-invalid' : '' }}" name="appointment_id" id="appointment_id">
-                    @foreach($appointments as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('appointment_id') ? old('appointment_id') : $appointmentCovenant->appointment->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('appointment'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('appointment') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.appointmentCovenant.fields.appointment_helper') }}</span>
-            </div>
+            <input type="hidden" name="appointment_id" value="{{$appointmentCovenant->appointment_id}}">
             <div class="form-group">
                 <label for="covenant_id">{{ trans('cruds.appointmentCovenant.fields.covenant') }}</label>
                 <select class="form-control select2 {{ $errors->has('covenant') ? 'is-invalid' : '' }}" name="covenant_id" id="covenant_id">

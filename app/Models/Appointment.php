@@ -34,8 +34,8 @@ class Appointment extends Model implements HasMedia
     ];
 
     public const TYPE_SELECT = [
-        'scheduled' => 'scheduled',
-        'emergency' => 'emergency',
+        'scheduled' => 'مجدولة',
+        'emergency' => 'طارئة',
     ];
 
     protected $fillable = [

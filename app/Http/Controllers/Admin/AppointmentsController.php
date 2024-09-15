@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\Contract;
+use App\Models\Covenant;
 use App\Models\Technician;
 use Gate;
 use Illuminate\Http\Request;
@@ -21,6 +22,14 @@ class AppointmentsController extends Controller
 {
     use MediaUploadingTrait;
 
+    public function get_contracts(Request $request){
+        $contracts = Contract::where('client_id', $request->client_id)->get();
+        $options = '';
+        foreach($contracts as $contract){
+            $options .= '<option value="'. $contract->id . '">'. $contract->id . ' - '. $contract->start_date . ' - '. $contract->end_date . '</option>'; 
+        }
+        return $options;
+    }
     public function index(Request $request)
     {
         abort_if(Gate::denies('appointment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -170,9 +179,10 @@ class AppointmentsController extends Controller
     {
         abort_if(Gate::denies('appointment_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $appointment->load('contract', 'client', 'technicians', 'appointmentAppointmentCovenants');
+        $appointment->load('contract', 'client.user', 'technicians', 'appointmentAppointmentCovenants');
+        $covenants = Covenant::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.appointments.show', compact('appointment'));
+        return view('admin.appointments.show', compact('appointment','covenants'));
     }
 
     public function destroy(Appointment $appointment)

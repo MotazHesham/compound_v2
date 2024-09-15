@@ -1,4 +1,4 @@
-<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
+<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show" style="background: #344a55">
 
     <div class="c-sidebar-brand d-md-down-none">
         <a class="c-sidebar-brand-full h4" href="#">
@@ -23,17 +23,7 @@
                     </i>
                     {{ trans('cruds.userManagement.title') }}
                 </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('permission_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.permissions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-unlock-alt c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.permission.title') }}
-                            </a>
-                        </li>
-                    @endcan
+                <ul class="c-sidebar-nav-dropdown-items"> 
                     @can('role_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.roles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "c-active" : "" }}">
@@ -106,17 +96,7 @@
                     {{ trans('cruds.appointment.title') }}
                 </a>
             </li>
-        @endcan
-        @can('appointment_covenant_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.appointment-covenants.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/appointment-covenants") || request()->is("admin/appointment-covenants/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-box-open c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.appointmentCovenant.title') }}
-                </a>
-            </li>
-        @endcan
+        @endcan 
         @can('technician_managment_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/technicians*") ? "c-show" : "" }} {{ request()->is("admin/technician-types*") ? "c-show" : "" }} {{ request()->is("admin/covenants*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

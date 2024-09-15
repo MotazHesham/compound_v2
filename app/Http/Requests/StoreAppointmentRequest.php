@@ -24,11 +24,7 @@ class StoreAppointmentRequest extends FormRequest
             'time' => [
                 'required',
                 'date_format:' . config('panel.time_format'),
-            ],
-            'finish_code' => [
-                'string',
-                'nullable',
-            ],
+            ], 
             'problem_photos' => [
                 'array',
             ],
