@@ -35,7 +35,7 @@ class AppointmentsController extends Controller
         abort_if(Gate::denies('appointment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Appointment::with(['contract', 'client', 'technicians'])->select(sprintf('%s.*', (new Appointment)->table));
+            $query = Appointment::with(['contract', 'client', 'technicians.user'])->select(sprintf('%s.*', (new Appointment)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -97,7 +97,9 @@ class AppointmentsController extends Controller
             $table->editColumn('technician', function ($row) {
                 $labels = [];
                 foreach ($row->technicians as $technician) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $technician->identity_num);
+                    if($technician->user){
+                        $labels[] = sprintf('<span class="badge badge-info badge-many">%s</span>', $technician->user->name);
+                    }
                 }
 
                 return implode(' ', $labels);
@@ -119,7 +121,8 @@ class AppointmentsController extends Controller
 
         $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $technicians = Technician::pluck('identity_num', 'id');
+        $technicians = Technician::with('user')->get()->pluck('user.name', 'id');
+        
 
         return view('admin.appointments.create', compact('clients', 'contracts', 'technicians'));
     }
@@ -147,7 +150,7 @@ class AppointmentsController extends Controller
 
         $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $technicians = Technician::pluck('identity_num', 'id');
+        $technicians = Technician::with('user')->get()->pluck('user.name', 'id');
 
         $appointment->load('contract', 'client', 'technicians');
 

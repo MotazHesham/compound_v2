@@ -59,10 +59,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.appointmentCovenant.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.appointmentCovenant.fields.appointment') }}
-                        </th>
+                        </th> 
                         <th>
                             {{ trans('cruds.appointmentCovenant.fields.covenant') }}
                         </th>
@@ -82,10 +79,7 @@
                             </td>
                             <td>
                                 {{ $appointmentCovenant->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $appointmentCovenant->appointment->date ?? '' }}
-                            </td>
+                            </td> 
                             <td>
                                 {{ $appointmentCovenant->covenant->name ?? '' }}
                             </td>

@@ -28,7 +28,7 @@
                             {{ trans('cruds.covenant.fields.technician') }}
                         </th>
                         <td>
-                            {{ $covenant->technician->identity_num ?? '' }}
+                            {{ $covenant->technician->user->name ?? '' }}
                         </td>
                     </tr>
                     <tr>

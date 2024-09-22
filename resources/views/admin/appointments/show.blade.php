@@ -139,7 +139,7 @@
                                 </th>
                                 <td>
                                     @foreach($appointment->technicians as $key => $technician)
-                                        <span class="label label-info">{{ $technician->identity_num }}</span>
+                                        <span class="badge badge-info">{{ $technician->user->name ?? '' }}</span>
                                     @endforeach
                                 </td>
                             </tr>

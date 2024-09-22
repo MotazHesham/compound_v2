@@ -262,7 +262,7 @@ return [
     'select_all'                     => 'تحديد الكل',
     'select_crud_placeholder'        => 'الرجاء اختيار واحد من CRUDs الخاص بك',
     'select_dt_placeholder'          => 'يرجى تحديد أحد حقول التاريخ / الوقت',
-    'select_users_placeholder'       => 'يرجى اختيار احد المستخدمين',
+    'select_users_placeholder'       => 'يرجى اختيار احد الموظفين',
     'send'                           => 'ارسال',
     'serial_number'                  => 'الرقم التسلسلي',
     'simple_user'                    => 'مستخدم عادي',

@@ -9,8 +9,7 @@ class CreateTechniciansTable extends Migration
     public function up()
     {
         Schema::create('technicians', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('identity_num')->nullable();
+            $table->bigIncrements('id'); 
             $table->timestamps();
             $table->softDeletes();
         });

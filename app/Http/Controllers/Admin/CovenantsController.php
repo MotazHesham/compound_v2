@@ -20,7 +20,7 @@ class CovenantsController extends Controller
         abort_if(Gate::denies('covenant_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Covenant::with(['technician'])->select(sprintf('%s.*', (new Covenant)->table));
+            $query = Covenant::with(['technician.user'])->select(sprintf('%s.*', (new Covenant)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -44,8 +44,8 @@ class CovenantsController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('technician_identity_num', function ($row) {
-                return $row->technician ? $row->technician->identity_num : '';
+            $table->addColumn('technician_user_name', function ($row) {
+                return $row->technician->user ? $row->technician->user->name : '';
             });
 
             $table->editColumn('name', function ($row) {
@@ -73,7 +73,7 @@ class CovenantsController extends Controller
     {
         abort_if(Gate::denies('covenant_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $technicians = Technician::pluck('identity_num', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $technicians = Technician::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.covenants.create', compact('technicians'));
     }
@@ -89,7 +89,7 @@ class CovenantsController extends Controller
     {
         abort_if(Gate::denies('covenant_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $technicians = Technician::pluck('identity_num', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $technicians = Technician::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $covenant->load('technician');
 
@@ -107,7 +107,7 @@ class CovenantsController extends Controller
     {
         abort_if(Gate::denies('covenant_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $covenant->load('technician');
+        $covenant->load('technician.user');
 
         return view('admin.covenants.show', compact('covenant'));
     }

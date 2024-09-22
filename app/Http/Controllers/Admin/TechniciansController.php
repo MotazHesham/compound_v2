@@ -11,6 +11,7 @@ use App\Models\TechnicianType;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -53,8 +54,8 @@ class TechniciansController extends Controller
                 return $row->technician_type ? $row->technician_type->name : '';
             });
 
-            $table->editColumn('identity_num', function ($row) {
-                return $row->identity_num ? $row->identity_num : '';
+            $table->editColumn('user_identity_num', function ($row) {
+                return $row->user ? $row->user->identity_num : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'user', 'technician_type']);
@@ -82,11 +83,58 @@ class TechniciansController extends Controller
             'phone' => $request->phone, 
             'password' => bcrypt($request->password), 
             'user_type' => 'technician',
+            'identity_num' => $request->identity_num,
+            'nationality' => $request->nationality,
+            'contract_type' => $request->contract_type,
+            'job_num' => $request->job_num,
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'commerical_num' => $request->commerical_num,
+            'manager_name' => $request->manager_name,
+            'manager_phone' => $request->manager_phone,
+            'manager_email' => $request->manager_email,
+            'company_address' => $request->company_address,
+            'company_website' => $request->company_website,
+            'contract_by' => $request->contract_by,
+            'contract_start' => $request->contract_start,
+            'contract_end' => $request->contract_end,
+            'commissioner_name' => $request->commissioner_name,
+            'commissioner_nationality' => $request->commissioner_nationality,
+            'commissioner_id_number' => $request->commissioner_id_number,
+            'commissioner_id_start' => $request->commissioner_id_start,
+            'commissioner_id_end' => $request->commissioner_id_end,
+            'commissioner_job' => $request->commissioner_job,
+            'commissioner_phone' => $request->commissioner_phone,
+            'commissioner_email' => $request->commissioner_email,
         ]);
+        
+        if ($request->input('photo', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+        }
+
+        if ($request->input('commerical_image', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('commerical_image'))))->toMediaCollection('commerical_image');
+        }
+
+        if ($request->input('contract_image', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('contract_image'))))->toMediaCollection('contract_image');
+        }
+
+        if ($request->input('commissioner_id_image', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('commissioner_id_image'))))->toMediaCollection('commissioner_id_image');
+        }
+
+        if ($request->input('commissioner_image', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('commissioner_image'))))->toMediaCollection('commissioner_image');
+        }
+
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $user->id]);
+        }
+        
         Technician::create([ 
             'user_id' => $user->id,
-            'technician_type_id' => $request->technician_type_id,
-            'identity_num' => $request->identity_num,
+            'technician_type_id' => $request->technician_type_id, 
         ]);
 
         return redirect()->route('admin.technicians.index');
@@ -112,11 +160,89 @@ class TechniciansController extends Controller
             'email' => $request->email,
             'phone' => $request->phone, 
             'password' => $request->password != null ? bcrypt($request->password) : $user->password,  
+            'identity_num' => $request->identity_num,
+            'nationality' => $request->nationality,
+            'contract_type' => $request->contract_type,
+            'job_num' => $request->job_num,
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'commerical_num' => $request->commerical_num,
+            'manager_name' => $request->manager_name,
+            'manager_phone' => $request->manager_phone,
+            'manager_email' => $request->manager_email,
+            'company_address' => $request->company_address,
+            'company_website' => $request->company_website,
+            'contract_by' => $request->contract_by,
+            'contract_start' => $request->contract_start,
+            'contract_end' => $request->contract_end,
+            'commissioner_name' => $request->commissioner_name,
+            'commissioner_nationality' => $request->commissioner_nationality,
+            'commissioner_id_number' => $request->commissioner_id_number,
+            'commissioner_id_start' => $request->commissioner_id_start,
+            'commissioner_id_end' => $request->commissioner_id_end,
+            'commissioner_job' => $request->commissioner_job,
+            'commissioner_phone' => $request->commissioner_phone,
+            'commissioner_email' => $request->commissioner_email,
         ]); 
         $technician->update([
-            'technician_type_id' => $request->technician_type_id,
-            'identity_num' => $request->identity_num,
+            'technician_type_id' => $request->technician_type_id, 
         ]);
+
+        
+        if ($request->input('photo', false)) {
+            if (! $user->photo || $request->input('photo') !== $user->photo->file_name) {
+                if ($user->photo) {
+                    $user->photo->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+            }
+        } elseif ($user->photo) {
+            $user->photo->delete();
+        }
+
+        if ($request->input('commerical_image', false)) {
+            if (! $user->commerical_image || $request->input('commerical_image') !== $user->commerical_image->file_name) {
+                if ($user->commerical_image) {
+                    $user->commerical_image->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('commerical_image'))))->toMediaCollection('commerical_image');
+            }
+        } elseif ($user->commerical_image) {
+            $user->commerical_image->delete();
+        }
+
+        if ($request->input('contract_image', false)) {
+            if (! $user->contract_image || $request->input('contract_image') !== $user->contract_image->file_name) {
+                if ($user->contract_image) {
+                    $user->contract_image->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('contract_image'))))->toMediaCollection('contract_image');
+            }
+        } elseif ($user->contract_image) {
+            $user->contract_image->delete();
+        }
+
+        if ($request->input('commissioner_id_image', false)) {
+            if (! $user->commissioner_id_image || $request->input('commissioner_id_image') !== $user->commissioner_id_image->file_name) {
+                if ($user->commissioner_id_image) {
+                    $user->commissioner_id_image->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('commissioner_id_image'))))->toMediaCollection('commissioner_id_image');
+            }
+        } elseif ($user->commissioner_id_image) {
+            $user->commissioner_id_image->delete();
+        }
+
+        if ($request->input('commissioner_image', false)) {
+            if (! $user->commissioner_image || $request->input('commissioner_image') !== $user->commissioner_image->file_name) {
+                if ($user->commissioner_image) {
+                    $user->commissioner_image->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('commissioner_image'))))->toMediaCollection('commissioner_image');
+            }
+        } elseif ($user->commissioner_image) {
+            $user->commissioner_image->delete();
+        }
 
         return redirect()->route('admin.technicians.index');
     }
