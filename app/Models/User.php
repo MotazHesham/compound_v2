@@ -12,13 +12,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, InteractsWithMedia, Auditable, HasFactory;
+    use SoftDeletes, Notifiable, InteractsWithMedia, Auditable, HasFactory, HasApiTokens ;
 
     public $table = 'users';
 
@@ -410,5 +411,9 @@ class User extends Authenticatable implements HasMedia
     public function getCommissionerImageAttribute()
     {
         return $this->getMedia('commissioner_image')->last();
+    }
+
+    public function client(){
+        return $this->hasOne(Client::class);
     }
 }

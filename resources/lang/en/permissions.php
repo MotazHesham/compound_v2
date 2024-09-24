@@ -13,6 +13,7 @@ return [
         'client' => 'العملاء',  
         'contract' => 'العقود',  
         'appointment' => 'المواعيد',  
+        'slider' => 'سلايدر',  
         'appointment_covenant' => 'عهدات لمعاد',  
     ],
     'technician_managment_access' => 'إدارة الفنيين',  
@@ -73,5 +74,10 @@ return [
     'appointment_covenant_show' => 'عرض عهدة لمعاد',
     'appointment_covenant_delete' => 'حذف عهدة لمعاد',
     'appointment_covenant_access' => 'قامة عهدات لمعاد',
+    'slider_create' => 'أضافة سلايدر',
+    'slider_edit' => 'تعديل سلايدر',
+    'slider_show' => 'عرض سلايدر',
+    'slider_delete' => 'حذف سلايدر',
+    'slider_access' => 'قائمة سلايدر',
     'profile_password_edit' => 'تعديل البروفايل',
 ];

@@ -139,6 +139,16 @@
                 </ul>
             </li>
         @endcan
+        @can('slider_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.sliders.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sliders") || request()->is("admin/sliders/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-image c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.slider.title') }}
+                </a>
+            </li>
+        @endcan
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.systemCalendar") }}" class="c-sidebar-nav-link {{ request()->is("admin/system-calendar") || request()->is("admin/system-calendar/*") ? "c-active" : "" }}">
                 <i class="c-sidebar-nav-icon fa-fw fas fa-calendar">

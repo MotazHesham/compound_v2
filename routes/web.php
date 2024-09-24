@@ -68,6 +68,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Appointment Covenants
     Route::delete('appointment-covenants/destroy', 'AppointmentCovenantsController@massDestroy')->name('appointment-covenants.massDestroy');
     Route::resource('appointment-covenants', 'AppointmentCovenantsController');
+    
+    // Sliders
+    Route::delete('sliders/destroy', 'SlidersController@massDestroy')->name('sliders.massDestroy');
+    Route::post('sliders/media', 'SlidersController@storeMedia')->name('sliders.storeMedia');
+    Route::post('sliders/ckmedia', 'SlidersController@storeCKEditorImages')->name('sliders.storeCKEditorImages');
+    Route::resource('sliders', 'SlidersController');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');

@@ -23,7 +23,7 @@ class StoreAppointmentRequest extends FormRequest
             ],
             'time' => [
                 'required',
-                'date_format:' . config('panel.time_format'),
+                'in:'. implode(',',array_keys(Appointment::TIMES_SELECT)),
             ], 
             'problem_photos' => [
                 'array',

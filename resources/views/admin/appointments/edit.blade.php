@@ -51,15 +51,20 @@
                     <span class="help-block">{{ trans('cruds.appointment.fields.date_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="required" for="time">{{ trans('cruds.appointment.fields.time') }}</label>
-                    <input class="form-control timepicker {{ $errors->has('time') ? 'is-invalid' : '' }}" type="text" name="time" id="time" value="{{ old('time', $appointment->time) }}" required>
+                    <label>{{ trans('cruds.appointment.fields.time') }}</label>
+                    <select class="form-control {{ $errors->has('time') ? 'is-invalid' : '' }}" name="time" id="time">
+                        <option value disabled {{ old('time', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                        @foreach(App\Models\Appointment::TIMES_SELECT as $key => $label)
+                            <option value="{{ $key }}" {{ old('time', $appointment->time) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
                     @if($errors->has('time'))
                         <div class="invalid-feedback">
                             {{ $errors->first('time') }}
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.appointment.fields.time_helper') }}</span>
-                </div>  
+                </div>
                 <div class="form-group col-md-4">
                     <label for="technicians">{{ trans('cruds.appointment.fields.technician') }}</label>
                     <div style="padding-bottom: 4px">

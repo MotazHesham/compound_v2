@@ -46,7 +46,7 @@
                                     {{ trans('cruds.appointment.fields.time') }}
                                 </th>
                                 <td>
-                                    {{ $appointment->time }}
+                                    {{ App\Models\Appointment::TIMES_SELECT[$appointment->time] ?? '' }}
                                 </td>
                             </tr>
                             <tr>
@@ -79,6 +79,26 @@
                                 </th>
                                 <td>
                                     @foreach($appointment->problem_photos as $key => $media)
+                                        <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
+                                            <img src="{{ $media->getUrl('thumb') }}">
+                                        </a>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.appointment.fields.problem_description_by_tech') }}
+                                </th>
+                                <td>
+                                    {{ $appointment->problem_description_by_tech }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.appointment.fields.problem_photos_by_tech') }}
+                                </th>
+                                <td>
+                                    @foreach($appointment->problem_photos_by_tech as $key => $media)
                                         <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
                                             <img src="{{ $media->getUrl('thumb') }}">
                                         </a>

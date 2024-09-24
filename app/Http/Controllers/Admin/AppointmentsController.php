@@ -64,7 +64,7 @@ class AppointmentsController extends Controller
             });
 
             $table->editColumn('time', function ($row) {
-                return $row->time ? $row->time : '';
+                return $row->time ? Appointment::TIMES_SELECT[$row->time] : '';
             });
             $table->editColumn('status', function ($row) {
                 return $row->status ? Appointment::STATUS_SELECT[$row->status] : '';

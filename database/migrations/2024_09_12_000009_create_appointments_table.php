@@ -12,11 +12,13 @@ class CreateAppointmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('type')->nullable();
             $table->date('date');
-            $table->time('time');
+            $table->string('time')->nullable();
             $table->string('status')->nullable();
             $table->string('finish_code')->nullable();
             $table->longText('problem_description')->nullable();
+            $table->longText('problem_description_by_tech')->nullable();
             $table->longText('review')->nullable();
+            $table->integer('rate')->nullable();
             $table->longText('cancel_reason')->nullable();
             $table->string('arrived_lat')->nullable();
             $table->string('arrived_lng')->nullable();
