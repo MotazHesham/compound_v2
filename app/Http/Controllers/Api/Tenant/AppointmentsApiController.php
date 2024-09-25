@@ -113,8 +113,7 @@ class AppointmentsApiController extends Controller
     }
     public function add(Request $request){
         
-        $rules = [   
-            'type'=> 'required|in:' . implode(',',array_keys(Appointment::TYPE_SELECT)), 
+        $rules = [    
             'problem_description'=> 'string|required',
             'date' => 'required|date_format:' . config('panel.date_format'),
             'time' => 'required|in:'. implode(',',array_keys(Appointment::TIMES_SELECT)), 
@@ -128,14 +127,19 @@ class AppointmentsApiController extends Controller
 
         $client = Client::where('user_id',Auth::id())->firstOrFail();
 
-        Appointment::create([ 
+        $appointment = Appointment::create([ 
             'type' => 'emergency',
             'date' => $request->date,
             'time' => $request->time,
             'status' => 'pending',
             'problem_description' => $request->problem_description,
             'client_id' => $client->id,
-        ]);    
+        ]); 
+        if($request->has('images')){ 
+            foreach ($request->images as $key => $image) { 
+                $appointment->addMedia($image)->toMediaCollection('problem_photos');
+            }
+        }   
         
         return $this->returnSuccessMessage(trans('global.flash.api.success'));
     } 
