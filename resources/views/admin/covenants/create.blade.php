@@ -10,8 +10,8 @@
         <form method="POST" action="{{ route("admin.covenants.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="technician_id">{{ trans('cruds.covenant.fields.technician') }}</label>
-                <select class="form-control select2 {{ $errors->has('technician') ? 'is-invalid' : '' }}" name="technician_id" id="technician_id">
+                <label class="required" for="technician_id">{{ trans('cruds.covenant.fields.technician') }}</label>
+                <select class="form-control select2 {{ $errors->has('technician') ? 'is-invalid' : '' }}" name="technician_id" id="technician_id" required>
                     @foreach($technicians as $id => $entry)
                         <option value="{{ $id }}" {{ old('technician_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach

@@ -19,7 +19,7 @@ class UserAlertsController extends Controller
         abort_if(Gate::denies('user_alert_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = UserAlert::with(['users'])->select(sprintf('%s.*', (new UserAlert)->table));
+            $query = UserAlert::with(['users'])->where('type','manual')->select(sprintf('%s.*', (new UserAlert)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');

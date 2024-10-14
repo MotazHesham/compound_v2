@@ -168,7 +168,7 @@ return [
         ],
     ],
     'userAlert' => [
-        'title'          => 'تنبيهات الموظفين',
+        'title'          => 'تنبيهات',
         'title_singular' => 'تنبيه',
         'fields'         => [
             'id'                => 'ID',

@@ -6,7 +6,7 @@ return [
         'user' => 'الموظفين',
         'audit_log' => 'Audit Log',  
         'general' => 'عام',  
-        'user_alert' => 'تنبيهات الموظفين',  
+        'user_alert' => 'تنبيهات',  
         'technician' => 'الفنيين',  
         'technician_type' => 'انواع الفنيين',  
         'covenant' => 'العهدات',  

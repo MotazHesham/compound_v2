@@ -34,6 +34,9 @@ class UserAuthApiController extends Controller
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) { 
+            if(Auth::user()->user_type == 'staff'){ 
+                return $this->returnError('500',trans('global.flash.api.invalid_user_or_password'));
+            }
             $token = Auth::user()->createToken('user_token')->plainTextToken;  
             return $this->returnData(
                 [

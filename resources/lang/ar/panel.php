@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'site_title' => 'compound',
+    'site_title' => 'رونق الماسة',
 
 ];

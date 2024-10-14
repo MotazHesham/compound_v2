@@ -12,6 +12,8 @@ use App\Models\exchangeOrder;
 use App\Models\order;
 use App\Models\Rate;
 use App\Models\TechnicalRate;
+use App\Models\User;
+use App\Models\UserAlert;
 use Illuminate\Http\Request;
 use App\Traits\api_return;
 use Illuminate\Support\Facades\Auth;
@@ -135,6 +137,15 @@ class AppointmentsApiController extends Controller
             'problem_description' => $request->problem_description,
             'client_id' => $client->id,
         ]); 
+
+        $userAlert = UserAlert::create([
+            'alert_text' => 'طلب معاد من ' . auth()->user()->name,
+            'alert_link' => route('admin.appointments.show',$appointment->id),
+            'type' => 'system',
+        ]);
+        
+        $userAlert->users()->sync(User::where('user_type','staff')->get()->pluck('id'));
+
         if($request->has('images')){ 
             foreach ($request->images as $key => $image) { 
                 $appointment->addMedia($image)->toMediaCollection('problem_photos');
