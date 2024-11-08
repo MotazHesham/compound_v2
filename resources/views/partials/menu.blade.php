@@ -1,12 +1,10 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show" style="background: #344a55">
 
-    <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
-            {{ trans('panel.site_title') }}
-        </a>
+    <div class="c-sidebar-brand d-md-down-none" style="background: aliceblue">
+        <img src="{{ asset('logo.png') }}" class="img-fluid" alt="">
     </div>
 
-    <ul class="c-sidebar-nav">
+    <ul class="c-sidebar-nav" style="background: #1c386a">
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.home") }}" class="c-sidebar-nav-link">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">
