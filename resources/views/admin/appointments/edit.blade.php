@@ -14,8 +14,10 @@
                 <div class="form-group col-md-6">
                     <label class="required" for="contract_id">{{ trans('cruds.appointment.fields.contract') }}</label>
                     <select class="form-control select2 {{ $errors->has('contract') ? 'is-invalid' : '' }}" name="contract_id" id="contract_id" required>
-                        @foreach($contracts as $id => $entry)
-                            <option value="{{ $id }}" {{ (old('contract_id') ? old('contract_id') : $appointment->contract->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        @foreach($contracts as $key => $contract)
+                            <option value="{{ $contract->id }}" {{ (old('contract_id') ? old('contract_id') : $appointment->contract->id ?? '') == $contract->id || $loop->first ? 'selected' : '' }}>
+                                (رقم {{ $contract->id }}) - ({{ $contract->start_date }} - {{ $contract->end_date }})
+                            </option>
                         @endforeach
                     </select>
                     @if($errors->has('contract'))

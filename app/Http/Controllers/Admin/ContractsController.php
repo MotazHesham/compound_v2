@@ -45,7 +45,7 @@ class ContractsController extends Controller
                 return $row->id ? $row->id : '';
             });
             $table->addColumn('client_address', function ($row) {
-                return $row->client ? $row->client->address : '';
+                return $row->client ? $row->client->user->name : '';
             });
 
             $table->editColumn('num_of_visits', function ($row) {
@@ -67,7 +67,7 @@ class ContractsController extends Controller
     {
         abort_if(Gate::denies('contract_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.contracts.create', compact('clients'));
     }
@@ -83,7 +83,7 @@ class ContractsController extends Controller
     {
         abort_if(Gate::denies('contract_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $contract->load('client');
 

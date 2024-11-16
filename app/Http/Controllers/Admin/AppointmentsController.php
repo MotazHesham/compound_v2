@@ -23,10 +23,11 @@ class AppointmentsController extends Controller
     use MediaUploadingTrait;
 
     public function get_contracts(Request $request){
-        $contracts = Contract::where('client_id', $request->client_id)->get();
+        $now = date('Y-m-d');
+        $contracts = Contract::where('client_id', $request->client_id)->whereDate('start_date','<=',$now)->whereDate('end_date','>=',$now)->get();
         $options = '';
         foreach($contracts as $contract){
-            $options .= '<option value="'. $contract->id . '">'. $contract->id . ' - '. $contract->start_date . ' - '. $contract->end_date . '</option>'; 
+            $options .= '<option value="'. $contract->id . '">(رقم '. $contract->id . ') - ('. $contract->start_date . ' - '. $contract->end_date . ')</option>'; 
         }
         return $options;
     }
@@ -87,7 +88,7 @@ class AppointmentsController extends Controller
                 return $row->cancel_reason ? $row->cancel_reason : '';
             });
             $table->addColumn('contract_start_date', function ($row) {
-                return $row->contract ? $row->contract->start_date : '';
+                return $row->contract ? $row->contract->id : '';
             });
 
             $table->addColumn('client_address', function ($row) {
@@ -119,7 +120,7 @@ class AppointmentsController extends Controller
 
         $contracts = Contract::pluck('start_date', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $technicians = Technician::with('user')->get()->pluck('user.name', 'id');
         
@@ -129,6 +130,14 @@ class AppointmentsController extends Controller
 
     public function store(StoreAppointmentRequest $request)
     {
+        $contract = Contract::findOrFail($request->contract_id);
+        $num_of_appointment_to_contract = Appointment::where('contract_id',$contract->id)->count();
+
+        if($num_of_appointment_to_contract >= $contract->num_of_visits){
+
+            return redirect()->back()->withErrors(['error' => 'تم تحطي عدد الزيارات لهذا العقد']);
+        }
+        
         $appointment = Appointment::create($request->all());
         $appointment->technicians()->sync($request->input('technicians', []));
         foreach ($request->input('problem_photos', []) as $file) {
@@ -146,7 +155,8 @@ class AppointmentsController extends Controller
     {
         abort_if(Gate::denies('appointment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $contracts = Contract::pluck('start_date', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $now = date('Y-m-d');
+        $contracts = Contract::where('client_id',$appointment->client_id)->whereDate('start_date','<=',$now)->whereDate('end_date','>=',$now)->get();
 
         $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -159,6 +169,14 @@ class AppointmentsController extends Controller
 
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
+        $contract = Contract::findOrFail($request->contract_id);
+        $num_of_appointment_to_contract = Appointment::where('contract_id',$contract->id)->count();
+
+        if($num_of_appointment_to_contract >= $contract->num_of_visits){
+
+            return redirect()->route('admin.appointments.edit',$appointment->id)->withErrors(['error' => 'تم تحطي عدد الزيارات لهذا العقد']);
+        }
+
         $appointment->update($request->all());
         $appointment->technicians()->sync($request->input('technicians', []));
         if (count($appointment->problem_photos) > 0) {

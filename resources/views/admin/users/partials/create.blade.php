@@ -35,6 +35,7 @@
         <span class="help-block">{{ trans('cruds.user.fields.phone_helper') }}</span>
     </div>
     @if($showRoles)
+        <input type="hidden" name="user_type" value="staff" id="">
         <div class="form-group col-md-4">
             <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
             <div style="padding-bottom: 4px">

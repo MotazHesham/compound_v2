@@ -136,12 +136,11 @@ class HomeController
             'entries_number'        => '5',
             'fields'                => [
                 'id'         => '',
+                'client'     => 'user.name',
                 'date'       => '',
-                'time'       => '',
-                'status'     => '',
-                'created_at' => '',
-                'client'     => 'address',
+                'time'       => '', 
                 'type'       => '',
+                'created_at' => '',
             ],
             'translation_key' => 'appointment',
         ];
