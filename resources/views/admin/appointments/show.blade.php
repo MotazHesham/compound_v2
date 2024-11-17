@@ -14,6 +14,11 @@
                         <a class="btn btn-default" href="{{ route('admin.appointments.index') }}">
                             {{ trans('global.back_to_list') }}
                         </a>
+                        @if(!in_array($appointment->status,['completed','canceled']))
+                            <a class="btn btn-info" href="{{ route('admin.appointments.edit',$appointment->id) }}">
+                                {{ trans('global.edit') }}
+                            </a>
+                        @endif
                     </div>
                     <table class="table table-bordered table-striped">
                         <tbody>

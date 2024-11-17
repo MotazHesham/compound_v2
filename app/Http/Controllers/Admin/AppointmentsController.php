@@ -147,7 +147,13 @@ class AppointmentsController extends Controller
     {
         abort_if(Gate::denies('appointment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        
+        if(in_array($appointment->status,['completed','canceled'])){
+            return redirect()->route('admin.appointments.index');
+        }
+
         $now = date('Y-m-d');
+
         $contracts = Contract::where('client_id',$appointment->client_id)->whereDate('start_date','<=',$now)->whereDate('end_date','>=',$now)->get();
 
         $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -194,6 +200,10 @@ class AppointmentsController extends Controller
     {
         abort_if(Gate::denies('appointment_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        if(in_array($appointment->status,['completed','canceled'])){
+            return redirect()->route('admin.appointments.index');
+        }
+        
         $appointment->delete();
 
         return back();
