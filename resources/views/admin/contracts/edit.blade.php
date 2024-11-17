@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="num_of_visits">{{ trans('cruds.contract.fields.num_of_visits') }}</label>
-                <input class="form-control {{ $errors->has('num_of_visits') ? 'is-invalid' : '' }}" type="number" name="num_of_visits" id="num_of_visits" value="{{ old('num_of_visits', $contract->num_of_visits) }}" step="1" required>
+                <input class="form-control {{ $errors->has('num_of_visits') ? 'is-invalid' : '' }}" type="number" name="num_of_visits" id="num_of_visits" value="{{ old('num_of_visits', $contract->num_of_visits) }}" step="1" required readonly>
                 @if($errors->has('num_of_visits'))
                     <div class="invalid-feedback">
                         {{ $errors->first('num_of_visits') }}

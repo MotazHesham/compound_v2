@@ -191,6 +191,10 @@ return [
         'fields'         => [
             'id'                   => 'ID',
             'id_helper'            => ' ',
+            'chosen_day'                       => 'يوم الصيانة',
+            'chosen_day_helper'                => ' ',
+            'time'                       => 'الوقت',
+            'time_helper'                => ' ',
             'client'               => 'العميل',
             'client_helper'        => ' ',
             'start_date'           => 'تاريخ البداية',

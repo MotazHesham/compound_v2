@@ -17,7 +17,7 @@ class Contract extends Model
 
     protected $dates = [
         'start_date',
-        'end_date',
+        'end_date', 
         'created_at',
         'updated_at',
         'deleted_at',
@@ -27,6 +27,8 @@ class Contract extends Model
         'client_id',
         'start_date',
         'end_date',
+        'chosen_day',
+        'time',
         'num_of_visits',
         'services',
         'created_at',
@@ -67,5 +69,5 @@ class Contract extends Model
     public function setEndDateAttribute($value)
     {
         $this->attributes['end_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
+    } 
 }

@@ -12,6 +12,8 @@ class CreateContractsTable extends Migration
             $table->bigIncrements('id');
             $table->date('start_date');
             $table->date('end_date');
+            $table->integer('chosen_day');
+            $table->string('time');
             $table->integer('num_of_visits');
             $table->longText('services')->nullable();
             $table->timestamps();

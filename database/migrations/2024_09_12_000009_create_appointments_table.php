@@ -10,7 +10,7 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('type')->nullable();
+            $table->string('type')->nullable()->default('scheduled');
             $table->date('date');
             $table->string('time')->nullable();
             $table->string('status')->nullable();

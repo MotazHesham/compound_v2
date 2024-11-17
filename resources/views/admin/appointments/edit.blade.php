@@ -41,6 +41,21 @@
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.appointment.fields.type_helper') }}</span>
+                </div> 
+                <div class="form-group col-md-4">
+                    <label>{{ trans('cruds.appointment.fields.status') }}</label>
+                    <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
+                        <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                        @foreach(App\Models\Appointment::STATUS_SELECT as $key => $label)
+                            <option value="{{ $key }}" {{ old('status', $appointment->status) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('status'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('status') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.appointment.fields.status_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="required" for="date">{{ trans('cruds.appointment.fields.date') }}</label>

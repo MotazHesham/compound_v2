@@ -191,6 +191,10 @@ return [
         'fields'         => [
             'id'                   => 'ID',
             'id_helper'            => ' ',
+            'chosen_day'                       => 'Fixing Day',
+            'chosen_day_helper'                => ' ',
+            'time'                       => 'Time',
+            'time_helper'                => ' ',
             'client'               => 'Client',
             'client_helper'        => ' ',
             'start_date'           => 'Start Date',

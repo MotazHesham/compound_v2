@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyContractRequest;
 use App\Http\Requests\StoreContractRequest;
 use App\Http\Requests\UpdateContractRequest;
+use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\Contract;
+use App\Models\Technician;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,13 +71,54 @@ class ContractsController extends Controller
         abort_if(Gate::denies('contract_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $clients = Client::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        
+        $technicians = Technician::with('user')->get()->pluck('user.name', 'id');
 
-        return view('admin.contracts.create', compact('clients'));
+        return view('admin.contracts.create', compact('clients','technicians'));
     }
 
     public function store(StoreContractRequest $request)
     {
         $contract = Contract::create($request->all());
+        
+        // Generate appointments
+        $startDate = $request->start_date ? Carbon::parse(Carbon::createFromFormat(config('panel.date_format'), $request->start_date)->format('Y-m-d')) : null;
+        $chosenDay = $request->chosen_day ; 
+        $appointments = [];
+
+        // Start from the month after the contract's start_date if the chosen day has passed
+        $currentMonth = $startDate->copy();
+        if ($startDate->day > $chosenDay) {
+            $currentMonth->addMonth();
+        }
+
+        for ($i = 0; $i < $request->num_of_visits; $i++) {
+
+            $appointmentDate = $currentMonth->copy()->day($chosenDay);
+            
+            // Handle edge cases where the chosen day might not exist in the month
+            if ($appointmentDate->month != $currentMonth->month) {
+                $appointmentDate = $appointmentDate->subDay();
+            } 
+
+            $appointments[] = [
+                'contract_id' => $contract->id,
+                'client_id' => $request->client_id,
+                'time' => $request->time,
+                'date' => $appointmentDate->toDateString(),  
+                'status' => 'pending',
+            ];
+
+            // Move to the next month
+            $currentMonth->addMonth();
+        }
+    
+        // Bulk insert appointments
+        Appointment::insert($appointments);
+
+        foreach(Appointment::where('contract_id',$contract->id)->get() as $appointment){ 
+            $appointment->technicians()->sync($request->input('technicians', []));
+        }
 
         return redirect()->route('admin.contracts.index');
     }

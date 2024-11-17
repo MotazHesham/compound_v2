@@ -47,21 +47,21 @@ class AppointmentsApiController extends Controller
 
     public function upcoming(){  
         $client = Client::where('user_id',Auth::id())->firstOrFail();
-        $appointments = Appointment::whereIn('status',['pending','working'])->where('client_id',$client->id)->orderBy('updated_at','desc')->paginate(15);
+        $appointments = Appointment::whereIn('status',['pending','working'])->where('client_id',$client->id)->orderBy('date','asc')->paginate(15);
         $resource = AppointmentResource::collection($appointments);  
         return $this->returnPaginationData($resource,$appointments,'success'); 
     } 
 
     public function completed(){  
         $client = Client::where('user_id',Auth::id())->firstOrFail();
-        $appointments = Appointment::where('status','completed')->where('client_id',$client->id)->orderBy('updated_at','desc')->paginate(15);
+        $appointments = Appointment::where('status','completed')->where('client_id',$client->id)->orderBy('date','desc')->paginate(15);
         $resource = AppointmentResource::collection($appointments);  
         return $this->returnPaginationData($resource,$appointments,'success'); 
     } 
     
     public function closed(){  
         $client = Client::where('user_id',Auth::id())->firstOrFail();
-        $appointments = Appointment::where('status','canceled')->where('client_id',$client->id)->orderBy('updated_at','desc')->paginate(15);
+        $appointments = Appointment::where('status','canceled')->where('client_id',$client->id)->orderBy('date','desc')->paginate(15);
         $resource = AppointmentResource::collection($appointments);  
         return $this->returnPaginationData($resource,$appointments,'success'); 
     } 

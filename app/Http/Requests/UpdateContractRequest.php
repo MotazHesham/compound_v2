@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Appointment;
 use App\Models\Contract;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
@@ -35,6 +36,15 @@ class UpdateContractRequest extends FormRequest
                 'min:-2147483648',
                 'max:2147483647',
             ],
+            'chosen_day' => [
+                'required',
+                'min:1',
+                'max:31',
+            ],
+            'time' => [
+                'required',
+                'in:'. implode(',',array_keys(Appointment::TIMES_SELECT)),
+            ], 
         ];
     }
 }

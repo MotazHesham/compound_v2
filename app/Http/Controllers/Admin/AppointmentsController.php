@@ -44,8 +44,8 @@ class AppointmentsController extends Controller
 
             $table->editColumn('actions', function ($row) {
                 $viewGate      = 'appointment_show';
-                $editGate      = 'appointment_edit';
-                $deleteGate    = 'appointment_delete';
+                $editGate      = in_array($row->status,['completed','canceled']) ? false :'appointment_edit';
+                $deleteGate    = in_array($row->status,['completed','canceled']) ? false :'appointment_delete';
                 $crudRoutePart = 'appointments';
 
                 return view('partials.datatablesActions', compact(
@@ -129,15 +129,7 @@ class AppointmentsController extends Controller
     }
 
     public function store(StoreAppointmentRequest $request)
-    {
-        $contract = Contract::findOrFail($request->contract_id);
-        $num_of_appointment_to_contract = Appointment::where('contract_id',$contract->id)->count();
-
-        if($num_of_appointment_to_contract >= $contract->num_of_visits){
-
-            return redirect()->back()->withErrors(['error' => 'تم تحطي عدد الزيارات لهذا العقد']);
-        }
-        
+    { 
         $appointment = Appointment::create($request->all());
         $appointment->technicians()->sync($request->input('technicians', []));
         foreach ($request->input('problem_photos', []) as $file) {
@@ -168,15 +160,7 @@ class AppointmentsController extends Controller
     }
 
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
-    {
-        $contract = Contract::findOrFail($request->contract_id);
-        $num_of_appointment_to_contract = Appointment::where('contract_id',$contract->id)->count();
-
-        if($num_of_appointment_to_contract >= $contract->num_of_visits){
-
-            return redirect()->route('admin.appointments.edit',$appointment->id)->withErrors(['error' => 'تم تحطي عدد الزيارات لهذا العقد']);
-        }
-
+    { 
         $appointment->update($request->all());
         $appointment->technicians()->sync($request->input('technicians', []));
         if (count($appointment->problem_photos) > 0) {

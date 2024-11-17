@@ -26,7 +26,7 @@ class HomeApiController extends Controller
 
         $client = Client::where('user_id',Auth::id())->firstOrFail();
 
-        $appointments = Appointment::where('client_id',$client->id)->orderBy('updated_at','desc')->take(4)->get();
+        $appointments = Appointment::where('client_id',$client->id)->whereIn('status',['pending','working'])->orderBy('date','asc')->take(4)->get();
         
         return $this->returnData(AppointmentResource::collection($appointments)); 
     } 

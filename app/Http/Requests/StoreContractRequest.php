@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Appointment;
 use App\Models\Contract;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,7 +16,7 @@ class StoreContractRequest extends FormRequest
     }
 
     public function rules()
-    {
+    { 
         return [
             'client_id' => [
                 'required',
@@ -30,11 +31,17 @@ class StoreContractRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
             ],
             'num_of_visits' => [
-                'required',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                'required', 
             ],
+            'chosen_day' => [
+                'required',
+                'min:1',
+                'max:31',
+            ],
+            'time' => [
+                'required',
+                'in:'. implode(',',array_keys(Appointment::TIMES_SELECT)),
+            ], 
         ];
     }
 }
