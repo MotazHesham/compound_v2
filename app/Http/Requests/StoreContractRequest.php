@@ -27,7 +27,7 @@ class StoreContractRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
             ],
             'end_date' => [
-                'required',
+                'nullable',
                 'date_format:' . config('panel.date_format'),
             ],
             'num_of_visits' => [

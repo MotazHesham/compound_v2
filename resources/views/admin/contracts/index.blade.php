@@ -29,10 +29,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.contract.fields.start_date') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.contract.fields.end_date') }}
-                        </th>
+                        </th> 
                         <th>
                             {{ trans('cruds.contract.fields.num_of_visits') }}
                         </th>
@@ -115,11 +112,7 @@
                     {
                         data: 'start_date',
                         name: 'start_date'
-                    },
-                    {
-                        data: 'end_date',
-                        name: 'end_date'
-                    },
+                    }, 
                     {
                         data: 'num_of_visits',
                         name: 'num_of_visits'

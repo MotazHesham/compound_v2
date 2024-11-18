@@ -34,7 +34,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.contract.fields.start_date_helper') }}</span>
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label class="required" for="end_date">{{ trans('cruds.contract.fields.end_date') }}</label>
                 <input class="form-control date {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="text" name="end_date" id="end_date" value="{{ old('end_date', $contract->end_date) }}" required>
                 @if($errors->has('end_date'))
@@ -43,7 +43,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.contract.fields.end_date_helper') }}</span>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label class="required" for="num_of_visits">{{ trans('cruds.contract.fields.num_of_visits') }}</label>
                 <input class="form-control {{ $errors->has('num_of_visits') ? 'is-invalid' : '' }}" type="number" name="num_of_visits" id="num_of_visits" value="{{ old('num_of_visits', $contract->num_of_visits) }}" step="1" required readonly>
