@@ -29,22 +29,7 @@ class UpdateContractRequest extends FormRequest
             'end_date' => [
                 'nullable',
                 'date_format:' . config('panel.date_format'),
-            ],
-            'num_of_visits' => [
-                'required',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
-            'chosen_day' => [
-                'required',
-                'min:1',
-                'max:31',
-            ],
-            'time' => [
-                'required',
-                'in:'. implode(',',array_keys(Appointment::TIMES_SELECT)),
-            ], 
+            ],  
         ];
     }
 }

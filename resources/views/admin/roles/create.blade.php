@@ -34,7 +34,7 @@
                                     </a>
                                 @endforeach
                                 <a class="nav-link" href="#general" role="tab" data-toggle="tab">
-                                    أخري
+                                    {{ trans('global.others') }}
                                 </a>
                             </li>
                         </ul>

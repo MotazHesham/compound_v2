@@ -25,10 +25,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.appointment.fields.status') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.appointment.fields.contract') }}
-                        </th>
+                        </th> 
                         <th>
                             {{ trans('cruds.appointment.fields.client') }}
                         </th>
@@ -60,10 +57,7 @@
                             </td>
                             <td>
                                 {{ App\Models\Appointment::STATUS_SELECT[$appointment->status] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $appointment->contract->id ?? '' }}
-                            </td>
+                            </td> 
                             <td>
                                 {{ $appointment->client->user->name ?? '' }}
                             </td>

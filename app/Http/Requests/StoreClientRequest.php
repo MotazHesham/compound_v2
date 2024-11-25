@@ -25,11 +25,33 @@ class StoreClientRequest extends FormRequest
                 'required',
                 'unique:users',
             ],
-            'phone' => [
-                'string',
+            'username' => [
                 'nullable',
+                'unique:users',
             ], 
             'password' => [
+                'required',
+            ],
+            'phone' => [
+                'required',
+                'regex:/^05\d{8}$/',
+            ],
+            'phone_2' => [
+                'nullable',
+                'regex:/^05\d{8}$/',
+            ],
+
+            'identity_num' => [
+                'required',
+                'numeric', 
+                function ($attribute, $value, $fail) {
+                    if ($this->input('nationality') === 'SA' && !preg_match('/^1\d{9}$/', $value)) {
+                        $fail('The :attribute must start with 1 and be 10 digits long when the Nationality is Saudi.');
+                    }
+                },
+            ],
+            'nationality' => [
+                'string',
                 'required',
             ],
         ];

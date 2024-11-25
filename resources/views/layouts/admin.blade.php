@@ -34,6 +34,17 @@
             }
         </style>
     @endif
+    <style>
+        .btn{
+            border-radius: 30px !important
+        }
+        .card{
+            border-radius: 30px !important
+        } 
+        .card-header{
+            border-radius: 25px !important
+        } 
+    </style>
     @yield('styles')
 </head>
 

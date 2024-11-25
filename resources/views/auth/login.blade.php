@@ -40,8 +40,17 @@
                     <div class="col-xl-6 col-lg-6 auth-card">
                         <img src="{{ asset('logo.png') }}"
                         alt=""  width="500"/>
-                        <h4 class="mb-5 font-20">مرحبا بكم  </h4>
+                        <h4 class="mb-5 font-20"> Welcome </h4>
 
+                        @if($errors->count() > 0)
+                            <div class="alert alert-danger">
+                                <ul class="list-unstyled">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         @if(session('message'))
                             <div class="alert alert-info" role="alert">
                                 {{ session('message') }}
@@ -53,14 +62,14 @@
     
                             <!-- Form Group -->
                             <div class="form-group mb-20">
-                                <label for="text" class="mb-2 font-14 bold black">البريد الألكتروني</label>
-                                <input type="email" id="text" name="email" value="{{ old('email') }}" class="theme-input-style"
-                                    placeholder="البريد الأكتروني"  required autocomplete="email" autofocus>
+                                <label for="text" class="mb-2 font-14 bold black">Email Or UserName</label>
+                                <input type="text" id="text" name="email" value="{{ old('email') }}" class="theme-input-style"
+                                    placeholder="Email Or UserName"  required autocomplete="email" autofocus>
                             </div>
                             <!-- End Form Group -->
                             <!-- Form Group -->
                             <div class="form-group mb-20">
-                                <label for="password" class="mb-2 font-14 bold black">كلمة المرور</label>
+                                <label for="password" class="mb-2 font-14 bold black">Password</label>
                                 <input type="password" name="password" required id="password" class="theme-input-style" placeholder="********">
                             </div>
                             <!-- End Form Group -->
@@ -74,7 +83,7 @@
                                     </label>
                                     <!-- End Custom Checkbox -->
 
-                                    <label for="checkbox" class="font-14">تذكرني</label>
+                                    <label for="checkbox" class="font-14">Remeber me</label>
                                 </div>
 
                                 {{-- <a href="forget-pass.html" class="font-12 text_color">نسيت كلمة المرور</a> --}}
@@ -83,7 +92,7 @@
 
 
                             <div class="d-flex align-items-center">
-                                <button type="submit" class="btn long ml-20">تسجيل الدخول</button>
+                                <button type="submit" class="btn long ml-20">Login</button>
                                 {{-- <span class="font-12 d-block"> ليس لديك حساب <a href="register.html" class="bold">
                                         تسجيل مستخدم جديد </a> </span> --}}
                             </div>

@@ -25,9 +25,13 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'unique:users,email,' . request()->route('user')->id,
             ],
+            'username' => [
+                'nulalble',
+                'unique:users,username,' . request()->route('user')->id,
+            ],
             'phone' => [
-                'string',
-                'nullable',
+                'required',
+                'regex:/^05\d{8}$/',
             ],
             'roles.*' => [
                 'integer',
@@ -37,12 +41,17 @@ class UpdateUserRequest extends FormRequest
                 'array',
             ],
             'identity_num' => [
-                'string',
-                'nullable',
+                'required',
+                'numeric', 
+                function ($attribute, $value, $fail) {
+                    if ($this->input('nationality') === 'SA' && !preg_match('/^1\d{9}$/', $value)) {
+                        $fail('The :attribute must start with 1 and be 10 digits long when the Nationality is Saudi.');
+                    }
+                },
             ],
             'nationality' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'job_num' => [
                 'string',
@@ -112,6 +121,12 @@ class UpdateUserRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'phone.regex' => 'The phone number must start with 05 and be 10 digits long.',
         ];
     }
 }

@@ -1,10 +1,10 @@
-<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show" style="background: #344a55">
+<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show" style="font-family: system-ui;  font-size: 15px; font-weight: bolder; @if (app()->getLocale() == 'ar') border-radius:0 0 0 60px @else border-radius:0 0 60px 0; @endif">
 
     <div class="c-sidebar-brand d-md-down-none" style="background: aliceblue">
         <img src="{{ asset('logo.png') }}" class="img-fluid" alt="">
     </div>
 
-    <ul class="c-sidebar-nav" style="background: #1c386a">
+    <ul class="c-sidebar-nav" style="background: linear-gradient(130deg, rgb(37 74 119) 0%, rgb(11 19 24) 100%); @if (app()->getLocale() == 'ar') border-radius:0 0 0 60px @else border-radius:0 0 60px 0; @endif">
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.home") }}" class="c-sidebar-nav-link">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">
@@ -65,14 +65,36 @@
                 </ul>
             </li>
         @endcan
-        @can('client_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.clients.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/clients") || request()->is("admin/clients/*") ? "c-active" : "" }}">
+        @can('client_managment_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/property-types*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.client.title') }}
+                    {{ trans('cruds.clientManagment.title') }}
                 </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('client_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.clients.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/clients") || request()->is("admin/clients/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.client.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('property_type_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.property-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/property-types") || request()->is("admin/property-types/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-building c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.propertyType.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
             </li>
         @endcan
         @can('contract_access')
@@ -156,7 +178,7 @@
             </a>
         </li>
         @php($unread = \App\Models\QaTopic::unreadCount())
-            <li class="c-sidebar-nav-item">
+            {{-- <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.messenger.index") }}" class="{{ request()->is("admin/messenger") || request()->is("admin/messenger/*") ? "c-active" : "" }} c-sidebar-nav-link">
                     <i class="c-sidebar-nav-icon fa-fw fa fa-envelope">
 
@@ -167,7 +189,7 @@
                     @endif
 
                 </a>
-            </li>
+            </li> --}}
             @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                 @can('profile_password_edit')
                     <li class="c-sidebar-nav-item">

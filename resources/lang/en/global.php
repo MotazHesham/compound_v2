@@ -322,6 +322,7 @@ return [
     'leave'                          => 'Leave',
     'calendar'                       => 'Calendar',
     'messenger'                      => 'Messenger',
+    'others'                         => 'Others',
 
     'flash' => [
         '404' => 'Not Found !!',

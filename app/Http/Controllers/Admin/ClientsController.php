@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyClientRequest;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Models\PropertyType;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -64,8 +65,9 @@ class ClientsController extends Controller
     {
         abort_if(Gate::denies('client_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
+        $property_types = PropertyType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.clients.create');
+        return view('admin.clients.create',compact('property_types'));
     }
 
     public function store(StoreClientRequest $request)
@@ -76,12 +78,21 @@ class ClientsController extends Controller
             'phone' => $request->phone, 
             'password' => bcrypt($request->password), 
             'user_type' => 'client',
+            'username' => $request->username, 
+            'identity_num' => $request->identity_num,
+            'nationality' => $request->nationality,
         ]);
-        Client::create([
+        $client = Client::create([
             'user_id' => $user->id,
             'address' => $request->address,
+            'property_type_id' => $request->property_type_id,
+            'phone_2' => $request->phone_2,
+            'client_status' => $request->client_status,
         ]);
 
+        if($request->has('add_contract')){
+            return redirect()->route('admin.contracts.create',['client_id' => $client->id]);
+        }
         return redirect()->route('admin.clients.index');
     }
 
@@ -89,10 +100,12 @@ class ClientsController extends Controller
     {
         abort_if(Gate::denies('client_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
 
+        $property_types = PropertyType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $client->load('user');
         $user = $client->user;
 
-        return view('admin.clients.edit', compact('client', 'user'));
+        return view('admin.clients.edit', compact('client', 'user','property_types'));
     }
 
     public function update(UpdateClientRequest $request, Client $client)

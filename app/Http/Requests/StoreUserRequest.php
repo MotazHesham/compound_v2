@@ -25,9 +25,13 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'unique:users',
             ],
-            'phone' => [
-                'string',
+            'username' => [
                 'nullable',
+                'unique:users',
+            ],
+            'phone' => [
+                'required',
+                'regex:/^05\d{8}$/',
             ],
             'roles.*' => [
                 'integer',
@@ -40,12 +44,17 @@ class StoreUserRequest extends FormRequest
                 'required',
             ],
             'identity_num' => [
-                'string',
-                'nullable',
+                'required',
+                'numeric', 
+                function ($attribute, $value, $fail) {
+                    if ($this->input('nationality') === 'SA' && !preg_match('/^1\d{9}$/', $value)) {
+                        $fail('The :attribute must start with 1 and be 10 digits long when the Nationality is Saudi.');
+                    }
+                },
             ],
             'nationality' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'job_num' => [
                 'string',
@@ -115,6 +124,12 @@ class StoreUserRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'phone.regex' => 'The phone number must start with 05 and be 10 digits long.',
         ];
     }
 }

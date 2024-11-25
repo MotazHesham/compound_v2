@@ -30,7 +30,7 @@
                                     {{ trans('cruds.contract.fields.client') }}
                                 </th>
                                 <td>
-                                    {{ $contract->client->address ?? '' }}
+                                    {{ $contract->client->user->name ?? '' }}
                                 </td>
                             </tr>
                             <tr>

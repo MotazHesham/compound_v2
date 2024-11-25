@@ -36,7 +36,7 @@ class AppointmentsController extends Controller
         abort_if(Gate::denies('appointment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Appointment::with(['contract', 'client', 'technicians.user'])->select(sprintf('%s.*', (new Appointment)->table));
+            $query = Appointment::with(['contract', 'client.user', 'technicians.user'])->select(sprintf('%s.*', (new Appointment)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -87,12 +87,12 @@ class AppointmentsController extends Controller
             $table->editColumn('cancel_reason', function ($row) {
                 return $row->cancel_reason ? $row->cancel_reason : '';
             });
-            $table->addColumn('contract_start_date', function ($row) {
-                return $row->contract ? $row->contract->id : '';
+            $table->addColumn('contract_id', function ($row) {
+                return $row->contract ? '<a href="'.route('admin.contracts.show',$row->contract_id).'">'.$row->contract_id.'</a>' : '';
             });
 
-            $table->addColumn('client_address', function ($row) {
-                return $row->client ? $row->client->address : '';
+            $table->addColumn('client_user_name', function ($row) {
+                return $row->client->user->name ?? '';
             });
 
             $table->editColumn('technician', function ($row) {
@@ -106,7 +106,7 @@ class AppointmentsController extends Controller
                 return implode(' ', $labels);
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'problem_photos', 'contract', 'client', 'technician']);
+            $table->rawColumns(['actions', 'placeholder', 'problem_photos', 'contract_id', 'client', 'technician']);
 
             return $table->make(true);
         }

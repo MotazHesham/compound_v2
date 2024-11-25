@@ -70,7 +70,7 @@ class ContractsController extends Controller
     {
         abort_if(Gate::denies('contract_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::with('user')->get();
         
         $technicians = Technician::with('user')->get()->pluck('user.name', 'id');
 

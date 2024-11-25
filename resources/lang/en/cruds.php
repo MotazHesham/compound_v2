@@ -47,6 +47,8 @@ return [
             'id_helper'                       => ' ',
             'name'                            => 'Name',
             'name_helper'                     => ' ',
+            'username'                            => 'UserName',
+            'username_helper'                     => ' ',
             'email'                           => 'Email',
             'email_helper'                    => ' ',
             'email_verified_at'               => 'Email verified at',
@@ -128,6 +130,7 @@ return [
     'client' => [
         'title'          => 'Clients',
         'title_singular' => 'Client',
+        'save_and_add_contract' => 'Save & Add Contract',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',
@@ -141,6 +144,12 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
+            'property_type'        => 'Property Type',
+            'property_type_helper' => ' ',
+            'phone_2'              => 'Phone 2',
+            'phone_2_helper'       => ' ',
+            'client_status'        => 'Client Status',
+            'client_status_helper' => ' ',
         ],
     ],
     'auditLog' => [
@@ -191,9 +200,9 @@ return [
         'fields'         => [
             'id'                   => 'ID',
             'id_helper'            => ' ',
-            'chosen_day'                       => 'Fixing Day',
+            'chosen_day'                       => 'Visitng Day',
             'chosen_day_helper'                => ' ',
-            'time'                       => 'Time',
+            'time'                       => 'Visitng Time',
             'time_helper'                => ' ',
             'client'               => 'Client',
             'client_helper'        => ' ',
@@ -296,8 +305,8 @@ return [
         ],
     ],
     'covenant' => [
-        'title'          => 'Covenants',
-        'title_singular' => 'Covenant',
+        'title'          => 'Parts',
+        'title_singular' => 'Part',
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => ' ',
@@ -324,14 +333,14 @@ return [
         'title_singular' => 'Technician Managment',
     ],
     'appointmentCovenant' => [
-        'title'          => 'Appointment Covenants',
-        'title_singular' => 'Appointment Covenant',
+        'title'          => 'Appointment Parts',
+        'title_singular' => 'Appointment Part',
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => ' ',
             'appointment'        => 'Appointment',
             'appointment_helper' => ' ',
-            'covenant'           => 'Covenant',
+            'covenant'           => 'Part',
             'covenant_helper'    => ' ',
             'quantity'           => 'Quantity',
             'quantity_helper'    => ' ',
@@ -345,7 +354,7 @@ return [
     ],
 
     'slider' => [
-        'title'          => 'Sliders',
+        'title'          => 'Sliders For App',
         'title_singular' => 'Slider',
         'fields'         => [
             'id'                => 'ID',
@@ -365,5 +374,25 @@ return [
             'deleted_at'        => 'Deleted at',
             'deleted_at_helper' => ' ',
         ],
+    ],
+    'propertyType' => [
+        'title'          => 'Property Type',
+        'title_singular' => 'Property Type',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => ' ',
+            'name'              => 'Property Type',
+            'name_helper'       => ' ',
+            'created_at'        => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'        => 'Updated at',
+            'updated_at_helper' => ' ',
+            'deleted_at'        => 'Deleted at',
+            'deleted_at_helper' => ' ',
+        ],
+    ],
+    'clientManagment' => [
+        'title'          => 'Client Managment',
+        'title_singular' => 'Client Managment',
     ],
 ];

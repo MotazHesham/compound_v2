@@ -57,6 +57,38 @@
                                     {{ $client->address }}
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.client.fields.phone_2') }}
+                                </th>
+                                <td>
+                                    {{ $client->phone_2 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.user.fields.identity_num') }}
+                                </th>
+                                <td>
+                                    {{ $user->identity_num }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.client.fields.client_status') }}
+                                </th>
+                                <td>
+                                    {{ App\Models\Client::CLIENT_STATUS_SELECT[$client->client_status] ?? '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.user.fields.nationality') }}
+                                </th>
+                                <td>
+                                    {{ App\Models\User::NATIONALITY_SELECT[$user->nationality] ?? '' }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="form-group">

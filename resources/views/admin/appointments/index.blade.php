@@ -91,16 +91,16 @@
                         name: 'status'
                     }, 
                     {
-                        data: 'contract_start_date',
-                        name: 'contract.start_date'
+                        data: 'contract_id',
+                        name: 'contract_id'
                     },
                     {
-                        data: 'client_address',
-                        name: 'client.address'
+                        data: 'client_user_name',
+                        name: 'client.user.name'
                     },
                     {
                         data: 'technician',
-                        name: 'technicians.identity_num'
+                        name: 'technicians.user.name'
                     },
                     {
                         data: 'actions',

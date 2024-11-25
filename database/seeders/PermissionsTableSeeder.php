@@ -396,6 +396,42 @@ class PermissionsTableSeeder extends Seeder
                 'type'  => 'general',
                 'parent' => 2,
             ],
+            [
+                'id'    => $i++,
+                'title' => 'property_type_create',
+                'type'  => 'property_type',
+                'parent'  => 0,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'property_type_edit',
+                'type'  => 'property_type',
+                'parent'  => 0,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'property_type_show',
+                'type'  => 'property_type',
+                'parent'  => 0,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'property_type_delete',
+                'type'  => 'property_type',
+                'parent'  => 0,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'property_type_access',
+                'type'  => 'property_type',
+                'parent'  => 0,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'client_managment_access',
+                'type'  => 'property_type.client',
+                'parent'  => 1,
+            ],
         ];
 
         Permission::insert($permissions);

@@ -57,7 +57,7 @@ class UserAuthApiController extends Controller
     public function login(Request $request){
 
         $rules = [
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required|min:6|max:20'
         ];
 
@@ -67,7 +67,16 @@ class UserAuthApiController extends Controller
             return $this->returnError('401', $validator->errors());
         }
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) { 
+        
+        $email_username = $request->email;
+        $user = User::where('email', $email_username)->orWhere('username', $email_username)->first();
+
+        if (!$user) {
+            return $this->returnError('500',trans('global.flash.api.invalid_user_or_password'));
+        }  
+        
+        if (Auth::attempt(['email' => $user->email, 'password' => $request->password]) ||
+            Auth::attempt(['username' => $user->username, 'password' => $request->password])) { 
             if(Auth::user()->user_type == 'staff'){ 
                 return $this->returnError('500',trans('global.flash.api.invalid_user_or_password'));
             }

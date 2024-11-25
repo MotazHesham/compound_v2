@@ -13,8 +13,10 @@
                 <div class="form-group col-md-3">
                     <label class="required" for="client_id">{{ trans('cruds.contract.fields.client') }}</label>
                     <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id" id="client_id" required>
-                        @foreach($clients as $id => $entry)
-                            <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        @foreach($clients as  $client)
+                            <option value="{{ $client->id }}" {{ old('client_id') == $client->id || request('client_id','') == $client->id ? 'selected' : '' }}>
+                                {{ $client->user->name ?? '' }} - {{ $client->user->identity_num }}
+                            </option>
                         @endforeach
                     </select>
                     @if($errors->has('client'))
@@ -26,7 +28,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label class="required" for="start_date">{{ trans('cruds.contract.fields.start_date') }}</label>
-                    <input class="form-control date {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="text" name="start_date" id="start_date" value="{{ old('start_date') }}" required>
+                    <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="text" name="start_date" id="start_date" value="{{ old('start_date','') }}" required>
                     @if($errors->has('start_date'))
                         <div class="invalid-feedback">
                             {{ $errors->first('start_date') }}
@@ -34,7 +36,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.contract.fields.start_date_helper') }}</span>
                 </div>
-                {{-- <div class="form-group col-md-3">
+                <div class="form-group col-md-3">
                     <label class="required" for="end_date">{{ trans('cruds.contract.fields.end_date') }}</label>
                     <input class="form-control date {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="text" name="end_date" id="end_date" value="{{ old('end_date') }}" required>
                     @if($errors->has('end_date'))
@@ -43,10 +45,10 @@
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.contract.fields.end_date_helper') }}</span>
-                </div> --}}
+                </div>
                 <div class="form-group col-md-3">
                     <label class="required" for="num_of_visits">{{ trans('cruds.contract.fields.num_of_visits') }}</label>
-                    <input class="form-control {{ $errors->has('num_of_visits') ? 'is-invalid' : '' }}" type="number" name="num_of_visits" id="num_of_visits" value="{{ old('num_of_visits', '12') }}" step="1" required  readonly>
+                    <input class="form-control {{ $errors->has('num_of_visits') ? 'is-invalid' : '' }}" type="number" name="num_of_visits" id="num_of_visits" value="{{ old('num_of_visits', '12') }}" step="1" required >
                     @if($errors->has('num_of_visits'))
                         <div class="invalid-feedback">
                             {{ $errors->first('num_of_visits') }}
@@ -119,4 +121,37 @@
 
 
 
+@endsection
+
+@section('scripts')
+    @parent
+    <script>  
+        $('#start_date').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'en',
+            icons: {
+                up: 'fas fa-chevron-up',
+                down: 'fas fa-chevron-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right'
+            }
+        })
+        $('#start_date').on('dp.change', function(e){
+            var start_date = $('#start_date').data().date;
+            // Split the date string into day, month, and year
+            const [day, month, year] = start_date.split('/').map(Number);
+
+            // Create a Date object
+            const date = new Date(year, month - 1, day);
+
+            // Add one year
+            date.setFullYear(date.getFullYear() + 1);
+
+            // Format back to DD/MM/YYYY
+            const newDay = String(date.getDate()).padStart(2, '0');
+            const newMonth = String(date.getMonth() + 1).padStart(2, '0');
+            const newYear = date.getFullYear(); 
+            var end_date = $('#end_date').val(`${newDay}/${newMonth}/${newYear}`);
+        })
+    </script>
 @endsection
