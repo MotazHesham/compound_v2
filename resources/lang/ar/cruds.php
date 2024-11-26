@@ -225,6 +225,7 @@ return [
     'appointment' => [
         'title'          => 'المواعيد',
         'title_singular' => 'موعد',
+        'latest' => 'أخر المواعيد',
         'fields'         => [
             'id'                         => 'ID',
             'id_helper'                  => ' ',

@@ -225,6 +225,7 @@ return [
     'appointment' => [
         'title'          => 'Appointments',
         'title_singular' => 'Appointment',
+        'latest' => 'Latest Appointment',
         'fields'         => [
             'id'                         => 'ID',
             'id_helper'                  => ' ',

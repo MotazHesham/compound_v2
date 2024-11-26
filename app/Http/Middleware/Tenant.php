@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Staff
+class Tenant
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,10 @@ class Staff
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->user_type == 'client'){ 
-            return redirect()->route('tenant.home');
-        }elseif(Auth::user()->user_type == 'staff'){
+        
+        if(Auth::user()->user_type == 'staff'){ 
+            return redirect()->route('home');
+        }elseif(Auth::user()->user_type == 'client'){
             return $next($request);
         }else{ 
             auth()->logout();
