@@ -26,7 +26,7 @@ class UpdateClientRequest extends FormRequest
                 'unique:users,email,' . request()->user_id,
             ],
             'username' => [
-                'nulalble',
+                'nullable',
                 'unique:users,username,' . request()->user_id,
             ],
             'phone' => [
@@ -38,6 +38,10 @@ class UpdateClientRequest extends FormRequest
                 'regex:/^05\d{8}$/',
             ],
 
+            'password' => [
+                'nullable',
+                'min:6',
+            ],
             'identity_num' => [
                 'required',
                 'numeric', 

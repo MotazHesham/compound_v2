@@ -31,6 +31,7 @@ class StoreClientRequest extends FormRequest
             ], 
             'password' => [
                 'required',
+                'min:6',
             ],
             'phone' => [
                 'required',

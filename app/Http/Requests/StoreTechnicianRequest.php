@@ -31,6 +31,7 @@ class StoreTechnicianRequest extends FormRequest
             ], 
             'password' => [
                 'required',
+                'min:6',
             ],
             'technician_type_id' => [
                 'required',

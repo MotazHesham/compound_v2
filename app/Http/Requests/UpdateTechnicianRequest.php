@@ -33,6 +33,10 @@ class UpdateTechnicianRequest extends FormRequest
                 'required',
                 'integer',
             ], 
+            'password' => [
+                'nullable',
+                'min:6',
+            ],
             'identity_num' => [
                 'string',
                 'nullable',
