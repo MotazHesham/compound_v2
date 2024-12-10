@@ -138,6 +138,9 @@ class ClientsController extends Controller
     {
         abort_if(Gate::denies('client_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        if($client->clientContracts->count() || $client->clientAppointments->count()){ 
+            return back()->withErrors(['error' => 'لايمكن حذف هذا العميل لوجود عقود مرتبطة به']);
+        }
         $client->user()->delete();
         $client->delete();
 

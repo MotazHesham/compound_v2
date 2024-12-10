@@ -9,7 +9,7 @@ return [
         'title'          => 'الصلاحيات',
         'title_singular' => 'الصلاحية',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'التسلسل',
             'id_helper'         => ' ',
             'title'             => 'Title',
             'title_helper'      => ' ',
@@ -25,7 +25,7 @@ return [
         'title'          => 'الوظائف',
         'title_singular' => 'وظيفة',
         'fields'         => [
-            'id'                 => 'ID',
+            'id'                 => 'التسلسل',
             'id_helper'          => ' ',
             'title'              => 'وظيفة',
             'title_helper'       => ' ',
@@ -43,7 +43,7 @@ return [
         'title'          => 'الموظفين',
         'title_singular' => 'موظف',
         'fields'         => [
-            'id'                              => 'ID',
+            'id'                              => 'التسلسل',
             'id_helper'                       => ' ',
             'name'                            => 'الاسم',
             'name_helper'                     => ' ',
@@ -132,7 +132,7 @@ return [
         'title_singular' => 'عميل',
         'save_and_add_contract' => 'حفظ وأضافة عقد',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'التسلسل',
             'id_helper'         => ' ',
             'user'              => 'العميل',
             'user_helper'       => ' ',
@@ -156,7 +156,7 @@ return [
         'title'          => 'Audit Logs',
         'title_singular' => 'Audit Log',
         'fields'         => [
-            'id'                  => 'ID',
+            'id'                  => 'التسلسل',
             'id_helper'           => ' ',
             'description'         => 'Description',
             'description_helper'  => ' ',
@@ -180,7 +180,7 @@ return [
         'title'          => 'تنبيهات',
         'title_singular' => 'تنبيه',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'التسلسل',
             'id_helper'         => ' ',
             'alert_text'        => 'التنبيه',
             'alert_text_helper' => ' ',
@@ -198,7 +198,7 @@ return [
         'title'          => 'العقود',
         'title_singular' => 'عقد',
         'fields'         => [
-            'id'                   => 'ID',
+            'id'                   => 'التسلسل',
             'id_helper'            => ' ',
             'chosen_day'                       => 'يوم الزيارة',
             'chosen_day_helper'                => ' ',
@@ -227,7 +227,7 @@ return [
         'title_singular' => 'موعد',
         'latest' => 'أخر المواعيد',
         'fields'         => [
-            'id'                         => 'ID',
+            'id'                         => 'التسلسل',
             'id_helper'                  => ' ',
             'date'                       => 'التاريخ',
             'date_helper'                => ' ',
@@ -273,7 +273,7 @@ return [
         'title'          => 'الفنيين',
         'title_singular' => 'فني',
         'fields'         => [
-            'id'                     => 'ID',
+            'id'                     => 'التسلسل',
             'id_helper'              => ' ',
             'user'                   => 'الفني',
             'user_helper'            => ' ',
@@ -293,7 +293,7 @@ return [
         'title'          => 'انواع الفنيين',
         'title_singular' => 'نوع فني',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'التسلسل',
             'id_helper'         => ' ',
             'name'              => 'النوع',
             'name_helper'       => ' ',
@@ -309,7 +309,7 @@ return [
         'title'          => 'القطع',
         'title_singular' => 'قطعة',
         'fields'         => [
-            'id'                 => 'ID',
+            'id'                 => 'التسلسل',
             'id_helper'          => ' ',
             'technician'         => 'الفني',
             'technician_helper'  => ' ',
@@ -337,7 +337,7 @@ return [
         'title'          => 'القطع المصروفة',
         'title_singular' => 'قطعة',
         'fields'         => [
-            'id'                 => 'ID',
+            'id'                 => 'التسلسل',
             'id_helper'          => ' ',
             'appointment'        => 'المعاد',
             'appointment_helper' => ' ',
@@ -358,7 +358,7 @@ return [
         'title'          => 'سلايدرز للأبلكيشن',
         'title_singular' => 'سلايدر',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'التسلسل',
             'id_helper'         => ' ',
             'image'             => 'الصورة',
             'image_helper'      => ' ',
@@ -380,7 +380,7 @@ return [
         'title'          => 'أنواع العقار',
         'title_singular' => 'نوع عقار',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'التسلسل',
             'id_helper'         => ' ',
             'name'              => 'نوع العقار',
             'name_helper'       => ' ',

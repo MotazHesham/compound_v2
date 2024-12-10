@@ -109,9 +109,12 @@ return [
     'url'         => ':attribute نوعة غير صحيح',
     'uuid'        => ':attribute يجب أن يكون UUID صالحًا.',
     'custom'      => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+        'phone' => [
+            'regex' => 'لا بد ان يبدأ رقم الجوال ب 05 ويحتوي علي 10 ارقام'
+        ], 
+        'phone_2' => [
+            'regex' => 'لا بد ان يبدأ رقم الجوال ب 05 ويحتوي علي 10 ارقام'
+        ], 
     ],
     'reserved_word'                  => ':attribute  يحتوي على كلمة محجوزة',
     'dont_allow_first_letter_number' => 'حقل الادخال \":input\" لايمكن ان يكون اول خانة رقم',

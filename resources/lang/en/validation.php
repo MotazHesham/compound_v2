@@ -109,9 +109,12 @@ return [
     'url'         => 'The :attribute format is invalid.',
     'uuid'        => 'The :attribute must be a valid UUID.',
     'custom'      => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+        'phone' => [
+            'regex' =>  'Phone should start with 05 and must contain 10 numbers'
+        ], 
+        'phone_2' => [
+            'regex' =>  'Phone should start with 05 and must contain 10 numbers'
+        ], 
     ],
     'reserved_word'                  => 'The :attribute contains reserved word',
     'dont_allow_first_letter_number' => 'The \":input\" field can\'t have first letter as a number',

@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
+use function Laravel\Prompts\alert;
+
 class ContractsController extends Controller
 {
     public function index(Request $request)
@@ -154,6 +156,9 @@ class ContractsController extends Controller
     {
         abort_if(Gate::denies('contract_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        if($contract->contractAppointments->count()){ 
+            return back()->withErrors(['error' => 'لايمكن حذف هذا العقد لوجود مواعيد مرتبطة به']);
+        }
         $contract->delete();
 
         return back();

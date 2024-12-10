@@ -100,6 +100,7 @@
                                 {{ App\Models\User::CONTRACT_TYPE_SELECT[$user->contract_type] ?? '' }}
                             </td>
                         </tr>
+                        @if($user->contract_type == 'on_bail')
                         <tr>
                             <th>
                                 {{ trans('cruds.user.fields.job_num') }}
@@ -108,6 +109,7 @@
                                 {{ $user->job_num }}
                             </td>
                         </tr>
+                        @else
                         <tr>
                             <th>
                                 {{ trans('cruds.user.fields.company_name') }}
@@ -308,6 +310,7 @@
                                 {{ $user->commissioner_email }}
                             </td>
                         </tr>
+                        @endif
                     </tbody>
                 </table>
                 <div class="form-group">

@@ -9,7 +9,7 @@ return [
         'title'          => 'Permissions',
         'title_singular' => 'Permission',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'Serial.',
             'id_helper'         => ' ',
             'title'             => 'Title',
             'title_helper'      => ' ',
@@ -25,7 +25,7 @@ return [
         'title'          => 'Roles',
         'title_singular' => 'Role',
         'fields'         => [
-            'id'                 => 'ID',
+            'id'                 => 'Serial.',
             'id_helper'          => ' ',
             'title'              => 'Title',
             'title_helper'       => ' ',
@@ -43,7 +43,7 @@ return [
         'title'          => 'Users',
         'title_singular' => 'User',
         'fields'         => [
-            'id'                              => 'ID',
+            'id'                              => 'Serial.',
             'id_helper'                       => ' ',
             'name'                            => 'Name',
             'name_helper'                     => ' ',
@@ -132,7 +132,7 @@ return [
         'title_singular' => 'Client',
         'save_and_add_contract' => 'Save & Add Contract',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'Serial.',
             'id_helper'         => ' ',
             'user'              => 'User',
             'user_helper'       => ' ',
@@ -156,7 +156,7 @@ return [
         'title'          => 'Audit Logs',
         'title_singular' => 'Audit Log',
         'fields'         => [
-            'id'                  => 'ID',
+            'id'                  => 'Serial.',
             'id_helper'           => ' ',
             'description'         => 'Description',
             'description_helper'  => ' ',
@@ -180,7 +180,7 @@ return [
         'title'          => 'User Alerts',
         'title_singular' => 'User Alert',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'Serial.',
             'id_helper'         => ' ',
             'alert_text'        => 'Alert Text',
             'alert_text_helper' => ' ',
@@ -198,7 +198,7 @@ return [
         'title'          => 'Contracts',
         'title_singular' => 'Contract',
         'fields'         => [
-            'id'                   => 'ID',
+            'id'                   => 'Serial.',
             'id_helper'            => ' ',
             'chosen_day'                       => 'Visitng Day',
             'chosen_day_helper'                => ' ',
@@ -227,7 +227,7 @@ return [
         'title_singular' => 'Appointment',
         'latest' => 'Latest Appointment',
         'fields'         => [
-            'id'                         => 'ID',
+            'id'                         => 'Serial.',
             'id_helper'                  => ' ',
             'date'                       => 'Date',
             'date_helper'                => ' ',
@@ -273,7 +273,7 @@ return [
         'title'          => 'Technicians',
         'title_singular' => 'Technician',
         'fields'         => [
-            'id'                     => 'ID',
+            'id'                     => 'Serial.',
             'id_helper'              => ' ',
             'user'                   => 'User',
             'user_helper'            => ' ',
@@ -293,7 +293,7 @@ return [
         'title'          => 'Technician Types',
         'title_singular' => 'Technician Type',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'Serial.',
             'id_helper'         => ' ',
             'name'              => 'Name',
             'name_helper'       => ' ',
@@ -309,7 +309,7 @@ return [
         'title'          => 'Parts',
         'title_singular' => 'Part',
         'fields'         => [
-            'id'                 => 'ID',
+            'id'                 => 'Serial.',
             'id_helper'          => ' ',
             'technician'         => 'Technician',
             'technician_helper'  => ' ',
@@ -337,7 +337,7 @@ return [
         'title'          => 'Appointment Parts',
         'title_singular' => 'Appointment Part',
         'fields'         => [
-            'id'                 => 'ID',
+            'id'                 => 'Serial.',
             'id_helper'          => ' ',
             'appointment'        => 'Appointment',
             'appointment_helper' => ' ',
@@ -358,7 +358,7 @@ return [
         'title'          => 'Sliders For App',
         'title_singular' => 'Slider',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'Serial.',
             'id_helper'         => ' ',
             'image'             => 'Image',
             'image_helper'      => ' ',
@@ -380,7 +380,7 @@ return [
         'title'          => 'Property Type',
         'title_singular' => 'Property Type',
         'fields'         => [
-            'id'                => 'ID',
+            'id'                => 'Serial.',
             'id_helper'         => ' ',
             'name'              => 'Property Type',
             'name_helper'       => ' ',
