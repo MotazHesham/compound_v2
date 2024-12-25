@@ -214,6 +214,8 @@ return [
             'num_of_visits_helper' => ' ',
             'services'             => 'الخدمات',
             'services_helper'      => ' ',
+            'status'             => 'الحالة',
+            'status_helper'      => ' ',
             'created_at'           => 'تاريخ الأضافة',
             'created_at_helper'    => ' ',
             'updated_at'           => 'تاريخ التعديل',

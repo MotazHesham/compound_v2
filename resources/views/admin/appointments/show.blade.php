@@ -115,6 +115,8 @@
                                     {{ trans('cruds.appointment.fields.review') }}
                                 </th>
                                 <td>
+                                    {{ $appointment->rate }} / 5
+                                    <br>
                                     {{ $appointment->review }}
                                 </td>
                             </tr>
@@ -125,23 +127,7 @@
                                 <td>
                                     {{ $appointment->cancel_reason }}
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    {{ trans('cruds.appointment.fields.arrived_lat') }}
-                                </th>
-                                <td>
-                                    {{ $appointment->arrived_lat }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    {{ trans('cruds.appointment.fields.arrived_lng') }}
-                                </th>
-                                <td>
-                                    {{ $appointment->arrived_lng }}
-                                </td>
-                            </tr>
+                            </tr> 
                             <tr>
                                 <th>
                                     {{ trans('cruds.appointment.fields.contract') }}

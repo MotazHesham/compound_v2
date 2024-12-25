@@ -214,6 +214,8 @@ return [
             'num_of_visits_helper' => ' ',
             'services'             => 'Services',
             'services_helper'      => ' ',
+            'status'             => 'Status',
+            'status_helper'      => ' ',
             'created_at'           => 'Created at',
             'created_at_helper'    => ' ',
             'updated_at'           => 'Updated at',

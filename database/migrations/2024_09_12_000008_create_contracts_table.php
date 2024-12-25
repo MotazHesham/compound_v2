@@ -16,6 +16,7 @@ class CreateContractsTable extends Migration
             $table->string('time');
             $table->integer('num_of_visits');
             $table->longText('services')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

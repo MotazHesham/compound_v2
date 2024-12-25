@@ -15,6 +15,13 @@ class Contract extends Model
 
     public $table = 'contracts';
 
+    
+    public const STATUS_SELECT = [
+        'active'     => 'تنشيط',
+        'canceled' => 'الغاء',
+        'tmp_stop' => 'ايقاف مؤقت',
+    ];
+
     protected $dates = [
         'start_date',
         'end_date', 
@@ -31,6 +38,7 @@ class Contract extends Model
         'time',
         'num_of_visits',
         'services',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',

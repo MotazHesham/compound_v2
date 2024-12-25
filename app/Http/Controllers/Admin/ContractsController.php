@@ -33,9 +33,9 @@ class ContractsController extends Controller
 
             $table->editColumn('actions', function ($row) {
                 $viewGate      = 'contract_show';
-                $editGate      = 'contract_edit';
-                $deleteGate    = 'contract_delete';
-                $crudRoutePart = 'contracts';
+                $editGate      = $row->status != 'active' ? false :'contract_edit';
+                $deleteGate    = $row->status != 'active' ? false :'contract_delete';
+                $crudRoutePart = 'contracts'; 
 
                 return view('partials.datatablesActions', compact(
                     'viewGate',
@@ -59,8 +59,17 @@ class ContractsController extends Controller
             $table->editColumn('services', function ($row) {
                 return $row->services ? $row->services : '';
             });
+            $table->editColumn('status', function ($row) { 
+                if($row->status == 'canceled') {
+                    return '<span class="badge badge-danger">تم الالغاء</span>';
+                }elseif($row->status == 'tmp_stop'){
+                    return '<span class="badge badge-warning">تم الايقاف المؤقت</span>';
+                }elseif($row->status == 'active'){
+                    return '<span class="badge badge-success">فعال</span>';
+                } 
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'client']);
+            $table->rawColumns(['actions', 'placeholder', 'client','status']);
 
             return $table->make(true);
         }
@@ -157,20 +166,27 @@ class ContractsController extends Controller
         abort_if(Gate::denies('contract_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if($contract->contractAppointments->count()){ 
-            return back()->withErrors(['error' => 'لايمكن حذف هذا العقد لوجود مواعيد مرتبطة به']);
+            return back()->withErrors(['error' => 'لايمكن الغاء هذا العقد لوجود مواعيد مرتبطة به']);
         }
-        $contract->delete();
+        if(request()->has('stop')){
+            $contract->status = 'tmp_stop';
+        }elseif(request()->has('stop')){
+            $contract->status = 'active';
+        }else{
+            $contract->status = 'canceled';
+        }
+        $contract->save();
 
         return back();
     }
 
     public function massDestroy(MassDestroyContractRequest $request)
     {
-        $contracts = Contract::find(request('ids'));
+        // $contracts = Contract::find(request('ids'));
 
-        foreach ($contracts as $contract) {
-            $contract->delete();
-        }
+        // foreach ($contracts as $contract) {
+        //     $contract->delete();
+        // }
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

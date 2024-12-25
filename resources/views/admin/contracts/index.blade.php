@@ -37,6 +37,9 @@
                             {{ trans('cruds.contract.fields.services') }}
                         </th>
                         <th>
+                            {{ trans('cruds.contract.fields.status') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -49,46 +52,7 @@
     @parent
     <script>
         $(function() {
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('contract_delete')
-                let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-                let deleteButton = {
-                    text: deleteButtonTrans,
-                    url: "{{ route('admin.contracts.massDestroy') }}",
-                    className: 'btn-danger',
-                    action: function(e, dt, node, config) {
-                        var ids = $.map(dt.rows({
-                            selected: true
-                        }).data(), function(entry) {
-                            return entry.id
-                        });
-
-                        if (ids.length === 0) {
-                            alert('{{ trans('global.datatables.zero_selected') }}')
-
-                            return
-                        }
-
-                        if (confirm('{{ trans('global.areYouSure') }}')) {
-                            $.ajax({
-                                    headers: {
-                                        'x-csrf-token': _token
-                                    },
-                                    method: 'POST',
-                                    url: config.url,
-                                    data: {
-                                        ids: ids,
-                                        _method: 'DELETE'
-                                    }
-                                })
-                                .done(function() {
-                                    location.reload()
-                                })
-                        }
-                    }
-                }
-                dtButtons.push(deleteButton)
-            @endcan
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons) 
 
             let dtOverrideGlobals = {
                 buttons: dtButtons,
@@ -120,6 +84,10 @@
                     {
                         data: 'services',
                         name: 'services'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'actions',

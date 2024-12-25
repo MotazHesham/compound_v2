@@ -15,7 +15,7 @@ class PermissionsTableSeeder extends Seeder
             [
                 'id'    => $i++,
                 'title' => 'user_management_access',
-                'type'  => 'role.user.audit_log.user_alert',
+                'type'  => 'role.user.user_alert',
                 'parent' => 1,
             ],
             [
@@ -138,18 +138,18 @@ class PermissionsTableSeeder extends Seeder
                 'type'  => 'client',
                 'parent' => 2,
             ],
-            [
-                'id'    => $i++,
-                'title' => 'audit_log_show',
-                'type'  => 'audit_log',
-                'parent' => 0,
-            ],
-            [
-                'id'    => $i++,
-                'title' => 'audit_log_access',
-                'type'  => 'audit_log',
-                'parent' => 0,
-            ],
+            // [
+            //     'id'    => $i++,
+            //     'title' => 'audit_log_show',
+            //     'type'  => 'audit_log',
+            //     'parent' => 0,
+            // ],
+            // [
+            //     'id'    => $i++,
+            //     'title' => 'audit_log_access',
+            //     'type'  => 'audit_log',
+            //     'parent' => 0,
+            // ],
             [
                 'id'    => $i++,
                 'title' => 'user_alert_create',
@@ -393,6 +393,12 @@ class PermissionsTableSeeder extends Seeder
             [
                 'id'    => $i++,
                 'title' => 'profile_password_edit',
+                'type'  => 'general',
+                'parent' => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'dashboard_stats',
                 'type'  => 'general',
                 'parent' => 2,
             ],
