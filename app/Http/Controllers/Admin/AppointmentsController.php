@@ -154,7 +154,12 @@ class AppointmentsController extends Controller
 
         $now = date('Y-m-d');
 
-        $contracts = Contract::where('client_id',$appointment->client_id)->whereDate('start_date','<=',$now)->whereDate('end_date','>=',$now)->get();
+        $contracts = Contract::where('client_id',$appointment->client_id)
+                                ->orWhere('contract_id',$appointment->contract_id)
+                                ->where(function($q)use($now){
+                                    $q->whereDate('start_date','<=',$now)->whereDate('end_date','>=',$now);
+                                })
+                                ->get();
 
         $clients = Client::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
