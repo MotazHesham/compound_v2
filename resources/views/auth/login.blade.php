@@ -379,7 +379,7 @@
                                     @csrf 
                                     <div class="field padding-bottom--24">
                                         <label for="email">{{ trans('auth.email_or_user') }}</label>
-                                        <input type="email" name="email" value="{{ old('email') }}" required>
+                                        <input type="text" name="email" value="{{ old('email') }}" required>
                                     </div>
                                     <div class="field padding-bottom--24">
                                         <div class="grid--50-50">
