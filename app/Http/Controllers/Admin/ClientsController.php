@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyClientRequest;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Jobs\ClientCreatedJob;
+use App\Jobs\SendClientRegisteredMail;
 use App\Models\Client;
 use App\Models\PropertyType;
 use App\Models\User;
@@ -93,6 +95,12 @@ class ClientsController extends Controller
         if($request->has('add_contract')){
             return redirect()->route('admin.contracts.create',['client_id' => $client->id]);
         }
+
+        $data = [
+            'user' => $user,
+            'password' => $request->password,
+        ];
+        dispatch(new ClientCreatedJob($user->email, $data));
         return redirect()->route('admin.clients.index');
     }
 
@@ -115,10 +123,16 @@ class ClientsController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone, 
-            'password' => $request->password != null ? bcrypt($request->password) : $user->password,  
+            'username' => $request->username, 
+            'password' => $request->password,
+            'identity_num' => $request->identity_num,
+            'nationality' => $request->nationality,
         ]); 
-        $client->update([ 
+        $client->update([  
             'address' => $request->address,
+            'property_type_id' => $request->property_type_id,
+            'phone_2' => $request->phone_2,
+            'client_status' => $request->client_status, 
         ]);
 
         return redirect()->route('admin.clients.index');

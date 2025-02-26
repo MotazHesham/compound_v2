@@ -45,7 +45,7 @@
                 </div> 
                 <div class="form-group col-md-3">
                     <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>
-                    <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" required>
+                    <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="text" name="password" id="password" required>
                     @if($errors->has('password'))
                         <div class="invalid-feedback">
                             {{ $errors->first('password') }}

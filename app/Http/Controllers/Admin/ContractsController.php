@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyContractRequest;
 use App\Http\Requests\StoreContractRequest;
 use App\Http\Requests\UpdateContractRequest;
+use App\Jobs\ContractCreatedJob;
 use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\Contract;
@@ -131,6 +132,12 @@ class ContractsController extends Controller
             $appointment->technicians()->sync($request->input('technicians', []));
         }
 
+        if($contract->client && $contract->client->user){
+            $data = [
+                'contract' => $contract, 
+            ];
+            dispatch(new ContractCreatedJob($contract->client->user->email, $data));
+        }
         return redirect()->route('admin.contracts.index');
     }
 
