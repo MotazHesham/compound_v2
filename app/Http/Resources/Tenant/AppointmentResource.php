@@ -23,7 +23,7 @@ class AppointmentResource extends JsonResource
             'date' => $this->date,
             'rate' => $this->rate,
             'review' => $this->review,
-            'status' => $this->status ? trans('panel.'.$this->status) : '',
+            'status' => $this->status ? trans('panel.status.'.$this->status) : '',
             'problem_description' => $this->problem_description,
         ];
     }
