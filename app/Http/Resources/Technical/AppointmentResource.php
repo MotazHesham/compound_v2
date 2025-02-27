@@ -23,8 +23,8 @@ class AppointmentResource extends JsonResource
             'service_type' => $this->type ? Appointment::TYPE_SELECT[$this->type] : '', 
             'time' => $this->time,
             'date' => $this->date,
-            'status_code' => $this->status ?? '',
-            'status' => $this->status ? Appointment::STATUS_SELECT[$this->status] : '', 
+            'status_code' => $this->status ?? '', 
+            'status' => $this->status ? trans('panel.'.$this->status) : '',
             'address' => $this->client->address ?? '',
             'phone' => $this->client->user->phone ?? '',
         ];
