@@ -20,7 +20,7 @@ class AppointmentResource extends JsonResource
         return [
             'id' => $this->id,
             'problem_description' => $this->problem_description,
-            'service_type' => $this->type ? Appointment::TYPE_SELECT[$this->type] : '', 
+            'service_type' => $this->type ? trans('panel.type.'.$this->type) : '', 
             'time' => $this->time,
             'date' => $this->date,
             'status_code' => $this->status ?? '', 

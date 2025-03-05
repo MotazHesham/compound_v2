@@ -7,5 +7,9 @@ return [
         'working' => 'قيد التنفيذ',
         'completed' => 'تم الأنتهاء',
         'canceled' => 'تم الألغاء',
-    ]
+    ],
+    'type' => [
+        'scheduled' => 'مجدولة',
+        'emergency' => 'طارئة',
+    ],
 ];

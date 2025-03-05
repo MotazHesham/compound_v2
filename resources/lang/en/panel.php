@@ -7,5 +7,9 @@ return [
         'working' => 'Working',
         'completed' => 'Completed',
         'canceled' => 'Canceled',
-    ]
+    ],
+    'type' => [
+        'scheduled' => 'Scheduled',
+        'emergency' => 'Emergency',
+    ],
 ];
