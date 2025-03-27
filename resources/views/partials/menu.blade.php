@@ -117,6 +117,16 @@
                 </a>
             </li>
         @endcan 
+        @can('appointment_edit_request_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.appointment-edit-requests.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/appointment-edit-requests") || request()->is("admin/appointment-edit-requests/*") ? "c-active" : "" }}">
+                    <i class="fa-fw far fa-calendar-alt c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.appointmentEditRequest.title') }}
+                </a>
+            </li>
+        @endcan
         @can('technician_managment_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/technicians*") ? "c-show" : "" }} {{ request()->is("admin/technician-types*") ? "c-show" : "" }} {{ request()->is("admin/covenants*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

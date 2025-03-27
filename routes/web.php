@@ -79,6 +79,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('property-types/destroy', 'PropertyTypeController@massDestroy')->name('property-types.massDestroy');
     Route::resource('property-types', 'PropertyTypeController');
 
+    // Appointment Edit Requests
+    Route::delete('appointment-edit-requests/destroy', 'AppointmentEditRequestsController@massDestroy')->name('appointment-edit-requests.massDestroy');
+    Route::resource('appointment-edit-requests', 'AppointmentEditRequestsController');
+    
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');

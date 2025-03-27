@@ -438,6 +438,36 @@ class PermissionsTableSeeder extends Seeder
                 'type'  => 'property_type.client',
                 'parent'  => 1,
             ],
+            [
+                'id'    => $i++,
+                'title' => 'appointment_edit_request_create',
+                'type'  => 'appointment_edit_request',
+                'parent'  => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'appointment_edit_request_edit',
+                'type'  => 'appointment_edit_request',
+                'parent'  => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'appointment_edit_request_show',
+                'type'  => 'appointment_edit_request',
+                'parent'  => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'appointment_edit_request_delete',
+                'type'  => 'appointment_edit_request',
+                'parent'  => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'appointment_edit_request_access',
+                'type'  => 'appointment_edit_request',
+                'parent'  => 2,
+            ],
         ];
 
         Permission::insert($permissions);

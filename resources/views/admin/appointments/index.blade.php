@@ -34,6 +34,9 @@
                             {{ trans('cruds.appointment.fields.time') }}
                         </th>
                         <th>
+                            {{ trans('cruds.appointment.fields.review') }}
+                        </th> 
+                        <th>
                             {{ trans('cruds.appointment.fields.status') }}
                         </th> 
                         <th>
@@ -86,6 +89,10 @@
                         data: 'time',
                         name: 'time'
                     },
+                    {
+                        data: 'rate',
+                        name: 'rate'
+                    }, 
                     {
                         data: 'status',
                         name: 'status'

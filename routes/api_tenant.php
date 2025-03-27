@@ -37,6 +37,11 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
             Route::delete('cancel/{id}','AppointmentsApiController@cancel');
         }); 
 
+        //appointment edit requests
+        Route::get('appointment-edit-requests','AppointmentEditRequestsController@all');
+        Route::post('appointment-edit-requests/add','AppointmentEditRequestsController@add');
+        Route::get('appointment-edit-requests/delete/{id}','AppointmentEditRequestsController@delete');
+
         //user profile
         Route::group(['prefix' =>'profile'],function(){
             Route::get('/','UsersApiController@profile'); 

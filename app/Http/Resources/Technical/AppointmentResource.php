@@ -27,6 +27,7 @@ class AppointmentResource extends JsonResource
             'status' => $this->status ? trans('panel.status.'.$this->status) : '',
             'address' => $this->client->address ?? '',
             'phone' => $this->client->user->phone ?? '',
+            'client_name' => $this->client->user->name ?? '',
         ];
     }
 }

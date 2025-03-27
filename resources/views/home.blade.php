@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    Dashboard
+                    Welocme, {{ auth()->user()->name }}
                 </div>
                 @can('dashboard_stats')
                     <div class="card-body">

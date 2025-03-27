@@ -93,44 +93,44 @@ class ContractsController extends Controller
     {
         $contract = Contract::create($request->all());
         
-        // Generate appointments
-        $startDate = $request->start_date ? Carbon::parse(Carbon::createFromFormat(config('panel.date_format'), $request->start_date)->format('Y-m-d')) : null;
-        $chosenDay = $request->chosen_day ; 
-        $appointments = [];
+        // // Generate appointments
+        // $startDate = $request->start_date ? Carbon::parse(Carbon::createFromFormat(config('panel.date_format'), $request->start_date)->format('Y-m-d')) : null;
+        // $chosenDay = $request->chosen_day ; 
+        // $appointments = [];
 
-        // Start from the month after the contract's start_date if the chosen day has passed
-        $currentMonth = $startDate->copy();
-        if ($startDate->day > $chosenDay) {
-            $currentMonth->addMonth();
-        }
+        // // Start from the month after the contract's start_date if the chosen day has passed
+        // $currentMonth = $startDate->copy();
+        // if ($startDate->day > $chosenDay) {
+        //     $currentMonth->addMonth();
+        // }
 
-        for ($i = 0; $i < $request->num_of_visits; $i++) {
+        // for ($i = 0; $i < $request->num_of_visits; $i++) {
 
-            $appointmentDate = $currentMonth->copy()->day($chosenDay);
+        //     $appointmentDate = $currentMonth->copy()->day($chosenDay);
             
-            // Handle edge cases where the chosen day might not exist in the month
-            if ($appointmentDate->month != $currentMonth->month) {
-                $appointmentDate = $appointmentDate->subDay();
-            } 
+        //     // Handle edge cases where the chosen day might not exist in the month
+        //     if ($appointmentDate->month != $currentMonth->month) {
+        //         $appointmentDate = $appointmentDate->subDay();
+        //     } 
 
-            $appointments[] = [
-                'contract_id' => $contract->id,
-                'client_id' => $request->client_id,
-                'time' => $request->time,
-                'date' => $appointmentDate->toDateString(),  
-                'status' => 'pending',
-            ];
+        //     $appointments[] = [
+        //         'contract_id' => $contract->id,
+        //         'client_id' => $request->client_id,
+        //         'time' => $request->time,
+        //         'date' => $appointmentDate->toDateString(),  
+        //         'status' => 'pending',
+        //     ];
 
-            // Move to the next month
-            $currentMonth->addMonth();
-        }
+        //     // Move to the next month
+        //     $currentMonth->addMonth();
+        // }
     
-        // Bulk insert appointments
-        Appointment::insert($appointments);
+        // // Bulk insert appointments
+        // Appointment::insert($appointments);
 
-        foreach(Appointment::where('contract_id',$contract->id)->get() as $appointment){ 
-            $appointment->technicians()->sync($request->input('technicians', []));
-        }
+        // foreach(Appointment::where('contract_id',$contract->id)->get() as $appointment){ 
+        //     $appointment->technicians()->sync($request->input('technicians', []));
+        // }
 
         if($contract->client && $contract->client->user){
             $data = [
