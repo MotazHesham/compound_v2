@@ -42,6 +42,11 @@
                 <span class="help-block">{{ trans('cruds.contract.fields.services_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="contract_file">{{ trans('cruds.contract.fields.contract_file') }}</label>
+                <div id="contract_file_dropzone" class="dropzone">
+                </div>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
@@ -52,4 +57,47 @@
 
 
 
+@endsection
+
+@section('scripts')
+    @parent
+    <script>
+        Dropzone.options.contractFileDropzone = {
+            url: '{{ route('admin.contracts.storeMedia') }}',
+            maxFilesize: 4, // MB
+            maxFiles: 1,
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success: function(file, response) {
+                $('form').find('input[name="contract_file"]').remove()
+                $('form').append('<input type="hidden" name="contract_file" value="' + response.name + '">')
+            },
+            removedfile: function(file) {
+                file.previewElement.remove()
+                if (file.status !== 'error') {
+                    $('form').find('input[name="contract_file"]').remove()
+                    this.options.maxFiles = this.options.maxFiles + 1
+                }
+            },
+            init: function() {
+                @if (isset($contract) && $contract->contract_file)
+                    var file = {!! json_encode($contract->contract_file) !!}
+                    this.options.addedfile.call(this, file)
+                    this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
+                    file.previewElement.classList.add('dz-complete')
+                    $('form').append('<input type="hidden" name="contract_file" value="' + file.file_name + '">')
+                    this.options.maxFiles = this.options.maxFiles - 1
+                @endif
+            },
+            error: function(file, response) {
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+            }
+        }
+    </script>
 @endsection

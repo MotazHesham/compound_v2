@@ -8,10 +8,12 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Contract extends Model
+class Contract extends Model implements HasMedia
 {
-    use SoftDeletes, Auditable, HasFactory;
+    use SoftDeletes, Auditable, HasFactory, InteractsWithMedia  ;
 
     public $table = 'contracts';
 
@@ -20,6 +22,10 @@ class Contract extends Model
         'active'     => 'تنشيط',
         'canceled' => 'الغاء',
         'tmp_stop' => 'ايقاف مؤقت',
+    ];
+
+    protected $appends = [
+        'contract_file',
     ];
 
     protected $dates = [
@@ -78,4 +84,10 @@ class Contract extends Model
     {
         $this->attributes['end_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     } 
+
+    public function getContractFileAttribute()
+    {
+        $file = $this->getMedia('contract_file')->last();  
+        return $file;
+    }
 }

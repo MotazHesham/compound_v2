@@ -44,6 +44,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Contracts
     Route::delete('contracts/destroy', 'ContractsController@massDestroy')->name('contracts.massDestroy');
+    Route::post('contracts/media', 'ContractsController@storeMedia')->name('contracts.storeMedia');
+    Route::post('contracts/ckmedia', 'ContractsController@storeCKEditorImages')->name('contracts.storeCKEditorImages');
     Route::resource('contracts', 'ContractsController');
 
     // Appointments

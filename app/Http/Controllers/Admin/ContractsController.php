@@ -16,11 +16,11 @@ use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
-
-use function Laravel\Prompts\alert;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 
 class ContractsController extends Controller
 {
+    use MediaUploadingTrait;
     public function index(Request $request)
     {
         abort_if(Gate::denies('contract_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -131,6 +131,10 @@ class ContractsController extends Controller
         // foreach(Appointment::where('contract_id',$contract->id)->get() as $appointment){ 
         //     $appointment->technicians()->sync($request->input('technicians', []));
         // }
+        
+        if ($request->input('contract_file', false)) {
+            $contract->addMedia(storage_path('tmp/uploads/' . basename($request->input('contract_file'))))->toMediaCollection('contract_file');
+        }
 
         if($contract->client && $contract->client->user){
             $data = [
@@ -155,6 +159,16 @@ class ContractsController extends Controller
     public function update(UpdateContractRequest $request, Contract $contract)
     {
         $contract->update($request->all());
+        if ($request->input('contract_file', false)) {
+            if (! $contract->contract_file || $request->input('contract_file') !== $contract->contract_file->file_name) {
+                if ($contract->contract_file) {
+                    $contract->contract_file->delete();
+                }
+                $contract->addMedia(storage_path('tmp/uploads/' . basename($request->input('contract_file'))))->toMediaCollection('contract_file');
+            }
+        } elseif ($contract->contract_file) {
+            $contract->contract_file->delete();
+        }
 
         return redirect()->route('admin.contracts.index');
     }

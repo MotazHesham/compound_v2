@@ -65,6 +65,14 @@
                                     {{ $contract->services }}
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.contract.fields.contract_file') }}
+                                </th>
+                                <td>
+                                    <a href="{{ $contract->contract_file ? $contract->contract_file->getUrl() : '' }}" target="_blank">{{ $contract->contract_file ? $contract->contract_file->file_name : '' }}</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="form-group">

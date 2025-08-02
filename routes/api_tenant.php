@@ -21,6 +21,7 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
         //home
         Route::get('sliders','HomeApiController@sliders');  
         Route::get('home/appointments','HomeApiController@appointments'); 
+        Route::get('home/appointment-stats','HomeApiController@appointmentStats'); 
 
         //services
         Route::get('services','ServiceApiController@services'); 
@@ -42,11 +43,17 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
         Route::post('appointment-edit-requests/add','AppointmentEditRequestsController@add');
         Route::get('appointment-edit-requests/delete/{id}','AppointmentEditRequestsController@delete');
 
+        //contracts
+        Route::get('contracts','ContractsController@all'); 
+
         //user profile
         Route::group(['prefix' =>'profile'],function(){
             Route::get('/','UsersApiController@profile'); 
             Route::post('update','UsersApiController@update_profile');  
         });
+        
+        //notifications
+        Route::get('notifications','UsersApiController@notifications');
     });
 });
 

@@ -216,6 +216,8 @@ return [
             'services_helper'      => ' ',
             'status'             => 'Status',
             'status_helper'      => ' ',
+            'contract_file'      => 'Contract File',
+            'contract_file_helper' => ' ',
             'created_at'           => 'Created at',
             'created_at_helper'    => ' ',
             'updated_at'           => 'Updated at',

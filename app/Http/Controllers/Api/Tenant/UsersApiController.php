@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api\Tenant;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Tenant\NotificationResource;
 use App\Http\Resources\Tenant\TenantResource; 
 use App\Traits\api_return;
 use Illuminate\Http\Request;
@@ -64,5 +65,10 @@ class UsersApiController extends Controller
 
 
         return $this->returnSuccessMessage('Token Updated Successfully');
+    }
+    public function notifications(Request $request){
+        $user = request()->user();
+        $notifications = $user->userUserAlerts()->orderBy('created_at','desc')->get();
+        return $this->returnData(NotificationResource::collection($notifications));
     }
 }
