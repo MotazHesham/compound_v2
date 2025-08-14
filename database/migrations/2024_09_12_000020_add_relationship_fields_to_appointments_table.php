@@ -13,6 +13,8 @@ class AddRelationshipFieldsToAppointmentsTable extends Migration
             $table->foreign('contract_id', 'contract_fk_10115105')->references('id')->on('contracts');
             $table->unsignedBigInteger('client_id')->nullable();
             $table->foreign('client_id', 'client_fk_10115106')->references('id')->on('clients');
+            $table->unsignedBigInteger('malfunction_type_id')->nullable();
+            $table->foreign('malfunction_type_id', 'malfunction_type_fk_1012207')->references('id')->on('malfunction_types');
         });
     }
 }

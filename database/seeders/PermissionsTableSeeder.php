@@ -296,6 +296,36 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => $i++,
+                'title' => 'malfunction_type_create',
+                'type'  => 'malfunction_type',
+                'parent' => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'malfunction_type_edit',
+                'type'  => 'malfunction_type',
+                'parent' => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'malfunction_type_show',
+                'type'  => 'malfunction_type',
+                'parent' => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'malfunction_type_delete',
+                'type'  => 'malfunction_type',
+                'parent' => 2,
+            ],
+            [
+                'id'    => $i++,
+                'title' => 'malfunction_type_access',
+                'type'  => 'malfunction_type',
+                'parent' => 2,
+            ],
+            [
+                'id'    => $i++,
                 'title' => 'covenant_create',
                 'type'  => 'covenant',
                 'parent' => 0,

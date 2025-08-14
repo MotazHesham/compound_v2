@@ -63,6 +63,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('technician-types/destroy', 'TechnicianTypesController@massDestroy')->name('technician-types.massDestroy');
     Route::resource('technician-types', 'TechnicianTypesController');
 
+    // Malfunction Types
+    Route::delete('malfunction-types/destroy', 'MalfunctionTypesController@massDestroy')->name('malfunction-types.massDestroy');
+    Route::resource('malfunction-types', 'MalfunctionTypesController');
+
     // Covenants
     Route::delete('covenants/destroy', 'CovenantsController@massDestroy')->name('covenants.massDestroy');
     Route::resource('covenants', 'CovenantsController');

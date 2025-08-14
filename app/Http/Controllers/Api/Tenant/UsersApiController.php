@@ -25,6 +25,7 @@ class UsersApiController extends Controller
             'name' => 'string|required',
             'email' => 'required|email|unique:users,email,'.Auth::id(), 
             'phone' => 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -39,6 +40,10 @@ class UsersApiController extends Controller
             return $this->returnError('404',trans('global.flash.api.not_found'));
 
         $user->update($request->all());
+
+        if($request->has('photo')){
+            $user->addMedia($request->photo)->toMediaCollection('photo');
+        }
 
 
         return $this->returnSuccessMessage('User Updated Successfully');

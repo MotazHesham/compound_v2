@@ -12,6 +12,7 @@ use App\Models\Client;
 use App\Models\Contract;
 use App\Models\Covenant;
 use App\Models\Technician;
+use App\Models\MalfunctionType;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -123,9 +124,10 @@ class AppointmentsController extends Controller
         $clients = Client::with('user')->get()->pluck('user.name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $technicians = Technician::with('user')->get()->pluck('user.name', 'id');
-        
 
-        return view('admin.appointments.create', compact('clients', 'contracts', 'technicians'));
+        $malfunctionTypes = MalfunctionType::all()->pluck('name', 'id');
+
+        return view('admin.appointments.create', compact('clients', 'contracts', 'technicians', 'malfunctionTypes'));
     }
 
     public function store(StoreAppointmentRequest $request)
@@ -162,7 +164,9 @@ class AppointmentsController extends Controller
 
         $appointment->load('contract', 'client', 'technicians');
 
-        return view('admin.appointments.edit', compact('appointment', 'clients', 'contracts', 'technicians'));
+        $malfunctionTypes = MalfunctionType::all()->pluck('name', 'id');
+
+        return view('admin.appointments.edit', compact('appointment', 'clients', 'contracts', 'technicians', 'malfunctionTypes'));
     }
 
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)

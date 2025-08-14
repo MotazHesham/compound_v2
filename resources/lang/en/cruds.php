@@ -271,6 +271,8 @@ return [
             'arrived_lat_helper'         => ' ',
             'arrived_lng'                => 'Arrived Lng',
             'arrived_lng_helper'         => ' ',
+            'malfunction_type'           => 'Malfunction Type',
+            'malfunction_type_helper'    => ' ',
         ],
     ],
     'technician' => [
@@ -296,6 +298,22 @@ return [
     'technicianType' => [
         'title'          => 'Technician Types',
         'title_singular' => 'Technician Type',
+        'fields'         => [
+            'id'                => 'Serial.',
+            'id_helper'         => ' ',
+            'name'              => 'Name',
+            'name_helper'       => ' ',
+            'created_at'        => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'        => 'Updated at',
+            'updated_at_helper' => ' ',
+            'deleted_at'        => 'Deleted at',
+            'deleted_at_helper' => ' ',
+        ],
+    ],
+    'malfunctionType' => [
+        'title'          => 'Malfunction Types',
+        'title_singular' => 'Malfunction Type',
         'fields'         => [
             'id'                => 'Serial.',
             'id_helper'         => ' ',

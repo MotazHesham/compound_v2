@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 'middleware' => 'changelanguage'], function () { 
 
     Route::post('login','UserAuthApiController@login');  
+
+    //malfunction types
+    Route::get('malfunction-types','MalfunctionTypesController@all');
     
 
     //reset password

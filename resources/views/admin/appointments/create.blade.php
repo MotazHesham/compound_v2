@@ -10,7 +10,7 @@
                 @csrf
                 <input type="hidden" name="status" value="pending" id="">
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label class="required" for="client_id">{{ trans('cruds.appointment.fields.client') }}</label>
                         <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}"
                             name="client_id" id="client_id" required onchange="getContracts()">
@@ -26,7 +26,7 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.appointment.fields.client_helper') }}</span>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label class="required" for="contract_id">{{ trans('cruds.appointment.fields.contract') }}</label>
                         <select class="form-control select2 {{ $errors->has('contract') ? 'is-invalid' : '' }}"
                             name="contract_id" id="contract_id" required>
@@ -39,7 +39,26 @@
                         @endif
                         <span class="help-block">{{ trans('cruds.appointment.fields.contract_helper') }}</span>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
+                        <label>{{ trans('cruds.appointment.fields.malfunction_type') }}</label>
+                        <select class="form-control {{ $errors->has('malfunction_type') ? 'is-invalid' : '' }}" name="malfunction_type_id"
+                            id="malfunction_type_id">
+                            <option value disabled {{ old('malfunction_type_id', null) === null ? 'selected' : '' }}>
+                                {{ trans('global.pleaseSelect') }}</option>
+                            @foreach ($malfunctionTypes as $id => $malfunctionType)
+                                <option value="{{ $id }}"
+                                    {{ old('malfunction_type_id') == $id ? 'selected' : '' }}>{{ $malfunctionType }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('malfunction_type'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('malfunction_type') }}
+                            </div>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.appointment.fields.malfunction_type_helper') }}</span>
+                    </div>
+                    <div class="form-group col-md-3">
                         <label>{{ trans('cruds.appointment.fields.type') }}</label>
                         <select class="form-control {{ $errors->has('type') ? 'is-invalid' : '' }}" name="type"
                             id="type">

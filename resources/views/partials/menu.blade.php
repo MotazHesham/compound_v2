@@ -169,6 +169,16 @@
                 </ul>
             </li>
         @endcan
+        @can('malfunction_type_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.malfunction-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/malfunction-types") || request()->is("admin/malfunction-types/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-exclamation-triangle c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.malfunctionType.title') }}
+                </a>
+            </li>
+        @endcan
         @can('slider_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.sliders.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sliders") || request()->is("admin/sliders/*") ? "c-active" : "" }}">

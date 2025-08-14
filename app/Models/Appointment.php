@@ -87,6 +87,7 @@ class Appointment extends Model implements HasMedia
         'arrived_lng',
         'contract_id',
         'client_id',
+        'malfunction_type_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -163,5 +164,10 @@ class Appointment extends Model implements HasMedia
     public function technicians()
     {
         return $this->belongsToMany(Technician::class);
+    }
+
+    public function malfunctionType()
+    {
+        return $this->belongsTo(MalfunctionType::class, 'malfunction_type_id');
     }
 }

@@ -119,6 +119,7 @@ class AppointmentsApiController extends Controller
             'problem_description'=> 'string|required',
             'date' => 'required|date_format:' . config('panel.date_format'),
             'time' => 'required|in:'. implode(',',array_keys(Appointment::TIMES_SELECT)), 
+            'malfunction_type_id' => 'nullable|exists:malfunction_types,id',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -136,6 +137,7 @@ class AppointmentsApiController extends Controller
             'status' => 'pending',
             'problem_description' => $request->problem_description,
             'client_id' => $client->id,
+            'malfunction_type_id' => $request->malfunction_type_id ?? null,
         ]); 
 
         $userAlert = UserAlert::create([
