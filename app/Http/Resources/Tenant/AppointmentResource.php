@@ -18,6 +18,7 @@ class AppointmentResource extends JsonResource
     {
         return [
             'id' => $this->id, 
+            'title' => $this->malfunctionType ? $this->malfunctionType->name : '',
             'service_type' => $this->type ? trans('panel.type.'.$this->type) : '', 
             'time' => $this->time,
             'date' => $this->date,
