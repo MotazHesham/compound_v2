@@ -25,7 +25,7 @@ class TenantResource extends JsonResource
                 'id', 'start_date', 'end_date', 'status'
             ]),
             'address' => $client?->address ?? '',
-            'photo' => $this->getFirstMediaUrl('photo') ?? '',
+            'photo' => $this->photo ? $this->photo->getUrl() : '',
         ];
     }
 }

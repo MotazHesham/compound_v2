@@ -40,8 +40,8 @@ class UsersApiController extends Controller
             return $this->returnError('404',trans('global.flash.api.not_found'));
 
         $user->update($request->all());
-
-        if($request->has('photo')){
+        
+        if($request->hasFile('photo')){  
             $user->addMedia($request->photo)->toMediaCollection('photo');
         }
 
